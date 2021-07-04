@@ -24,7 +24,9 @@ import (
 
 // Property E. The number of compares used by ShellSort with the increments 1, 4, 13, 40, 121, 364, . . .
 // is bounded by a small multiple of N times the number of increments used.
-// Evidence: Instrumenting ALGORITHM 2.3 to count compares and divide by the number of increments used is a straightforward exercise (see EXERCISE 2.1.12). Extensive experiments suggest that the average number of compares per increment might be N1/5, but it is quite difficult to discern the growth in that function unless N is huge. This property also seems to be rather insensitive to the input model.
+// Evidence: Instrumenting ALGORITHM 2.3 to count compares and divide by the number of increments used is a straightforward exercise (see EXERCISE 2.1.12).
+// Extensive experiments suggest that the average number of compares per increment might be N1/5, but it is quite difficult to discern the growth in that function unless N is huge.
+// This property also seems to be rather insensitive to the input model.
 
 func Sort(a []int, less func (i, j int) bool) {
 	n := len(a)

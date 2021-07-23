@@ -1,8 +1,9 @@
-# Algorithms Sedgewick - Go
+# Algorithms Sedgewick implemented in Go
 
 [Book site](https://algs4.cs.princeton.edu)
 
-### Algorithms implemented in Go
+### Algorithms Sedgewick - Java
+
 [Java code](https://algs4.cs.princeton.edu/code/)
 
 ### Bitwise operations

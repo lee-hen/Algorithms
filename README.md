@@ -6,4 +6,4 @@
 [Java code](https://algs4.cs.princeton.edu/code/)
 
 ### Other Algorithms Exercises
-[Golang code] https://github.com/lee-hen/Algoexpert
+[Algoexpert](https://github.com/lee-hen/Algoexpert)

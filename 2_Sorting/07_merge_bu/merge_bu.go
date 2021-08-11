@@ -44,6 +44,10 @@ func merge(a, aux intSlice, lo, mid, hi int) {
 	}
 }
 
+// Sort
+// Proposition H. Bottom-up mergesort uses between ½ N lg N and N lg N compares and at most 6N lg N array accesses to sort an array of length N.
+// Proof: The number of passes through the array is precisely lg N (that is precisely the value of n such that 2n-1 ≤ N < 2n+1).
+// For each pass, the number of array accesses is exactly 6N and the number of compares is at most N and no less than N/2.
 func Sort(a []int) {
 	aux := make(intSlice, len(a), len(a))
 	for ln := 1; ln < len(a); ln *= 2 {

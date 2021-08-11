@@ -1,25 +1,16 @@
 package main
 
 import (
+	"github.com/lee-hen/Algorithms/util"
+
 	"bufio"
 	"fmt"
 	"io"
 	"log"
-	"math/rand"
 	"os"
 	"strings"
-	"time"
 )
 
-func Shuffle(a []string) {
-	n := len(a)
-	rand.Seed(time.Now().UnixNano())
-
-	for i := 0; i < n; i++ {
-		r := rand.Intn(n)
-		a[i], a[r] = a[r], a[i]
-	}
-}
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
@@ -31,7 +22,7 @@ func main() {
 		log.Fatal(err)
 	}
 	a := strings.Split(line[:len(line)-1], "")
-	Shuffle(a)
+	util.ShuffleStringSlice(a)
 
 	for i := 0; i < len(a); i++ {
 		fmt.Println(a[i])

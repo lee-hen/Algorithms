@@ -35,7 +35,7 @@ func main() {
 
 	for !pq.IsEmpty() {
 		maxPrior := pq.MaxPriority()
-		idx := pq.DelMaxPriority()
+		idx := pq.DelMax()
 		fmt.Printf("idx:%d-priority: %f\n", idx, maxPrior)
 	}
 

@@ -14,7 +14,7 @@ type IndexMinPQ struct {
 }
 
 func NewIndexMinPQ(maxN int) *IndexMinPQ {
-	heap := NewHeap(MinHeapFunc, maxN+1)
+	heap := NewHeap(MinHeapFunc)
 
 	for idx := 0; idx <= maxN+1; idx++ {
 		heap.inverseIndices[idx] = -1
@@ -76,7 +76,7 @@ func (pq *IndexMinPQ) MinPriority() float64 {
 	return pq.priorities[pq.indices[1]]
 }
 
-func (pq *IndexMinPQ) DelMinPriority() int {
+func (pq *IndexMinPQ) DelMin() int {
 	if pq.length() == 0 {
 		log.Fatalln("Priority queue underflow")
 	}
@@ -175,7 +175,7 @@ type HeapFunc func(float64, float64) bool
 
 var MinHeapFunc = func(a, b float64) bool { return a > b }
 
-func NewHeap(fn HeapFunc, n int) *Heap {
+func NewHeap(fn HeapFunc) *Heap {
 	return &Heap{
 		comp:   fn,
 		indices: []int{-1},

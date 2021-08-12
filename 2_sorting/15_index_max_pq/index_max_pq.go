@@ -11,7 +11,7 @@ type IndexMaxPQ struct {
 }
 
 func NewIndexMaxPQ(maxN int) *IndexMaxPQ {
-	heap := NewHeap(MaxHeapFunc, maxN+1)
+	heap := NewHeap(MaxHeapFunc)
 
 	return &IndexMaxPQ{
 		heap,
@@ -69,7 +69,7 @@ func (pq *IndexMaxPQ) MaxPriority() float64 {
 	return pq.priorities[pq.indices[1]]
 }
 
-func (pq *IndexMaxPQ) DelMaxPriority() int {
+func (pq *IndexMaxPQ) DelMax() int {
 	if pq.length() == 0 {
 		log.Fatalln("Priority queue underflow")
 	}
@@ -168,7 +168,7 @@ type HeapFunc func(float64, float64) bool
 
 var MaxHeapFunc = func(a, b float64) bool { return a < b }
 
-func NewHeap(fn HeapFunc, n int) *Heap {
+func NewHeap(fn HeapFunc) *Heap {
 	return &Heap{
 		comp:   fn,
 		indices: []int{-1},

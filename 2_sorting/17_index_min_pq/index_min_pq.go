@@ -4,6 +4,9 @@ import (
 	"log"
 )
 
+// Proposition Q (continued). In an index priority queue of size N, the number of compares required is proportional to at most log N for insert, change priority, delete, and remove the minimum.
+// Proof: Immediate from inspection of the code and the fact that all paths in a heap are of length at most ~lg N.
+
 type IndexMinPQ struct {
 	*Heap
 

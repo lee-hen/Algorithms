@@ -23,7 +23,7 @@ func (pq *MaxHeap) DelMax() string {
 }
 
 func (pq *MaxHeap) Insert(key string) {
-	i := len(*pq)-1
+	i := len(*pq) - 1
 	*pq = append(*pq, key)
 
 	for i >= 0 && less(key, (*pq)[i]) {

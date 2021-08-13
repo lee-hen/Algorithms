@@ -1,5 +1,7 @@
 package stable_min_pq
 
+import "github.com/lee-hen/Algorithms/util"
+
 type StableMinPQ struct {
 	*Heap
 	timestamp int
@@ -100,14 +102,10 @@ func (h *Heap) length() int {
 
 func (h *Heap) greater(i, j int) bool {
 	if h.items[i].Name == h.items[j].Name {
-		return greater(h.time[i], h.time[j])
+		return util.Greater(h.time[i], h.time[j])
 	}
 
 	return h.comp(h.items[i].Name, h.items[j].Name)
-}
-
-func greater(a, b int) bool {
-	return a > b
 }
 
 func (h *Heap) exchange(i, j int) {

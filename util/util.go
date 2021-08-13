@@ -32,6 +32,17 @@ func Abs(a int) int {
 	return a
 }
 
+func Less(v, w int) bool {
+	return v < w
+}
+
+func Greater(v, w int) bool {
+	return v > w
+}
+
+func Eq(v, w int) bool {
+	return v == w
+}
 
 // Gcd
 // gcd(888, 54)

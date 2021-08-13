@@ -72,30 +72,26 @@ func sort(lo, hi int, a []int) {
 }
 
 func partition(pivot, hi int, a []int) int {
-	i, j := pivot+1, hi
+	i, j := pivot, hi+1
+	v := a[pivot]
 
-	for j >= i {
-		if a[i] > a[pivot] && a[j] < a[pivot] {
-			a[i], a[j] = a[j], a[i]
-		}
+	for {
+		for i = i+1; i < hi && util.Less(a[i], v); i++ {}
+		for j = j-1; j > pivot && util.Less(v, a[j]); j-- {}
 
-		if a[i] <= a[pivot] {
-			i++
+		if i >= j {
+			break
 		}
-
-		if a[j] >= a[pivot] {
-			j--
-		}
+		exchange(a, i, j)
 	}
-
 	exchange(a, pivot, j)
+
 	return j
 }
 
 func exchange(a []int, i, j int) {
 	a[i], a[j] = a[j], a[i]
 }
-
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)

@@ -42,10 +42,8 @@ func Sort(a []string, w int) {
 		// move data
 		for i := 0; i < len(a); i++ {
 			aux[count[a[i][d]]] = a[i]
-			fmt.Println(aux, a[i][d], count[a[i][d]], a[i])
 			count[a[i][d]]++
 		}
-
 
 		// copy back
 		for i := 0; i < len(a); i++ {

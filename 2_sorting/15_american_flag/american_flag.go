@@ -49,6 +49,7 @@ func sort(lo, hi int, a []string) {
 
 			if c > 0 && first[c+1]-1 > first[c] {
 				// add subproblem for character c (excludes sentinel c == 0)
+				// group by same char
 				st.Push(first[c])
 				st.Push(first[c+1] - 1)
 				st.Push(d + 1)
@@ -63,6 +64,8 @@ func sort(lo, hi int, a []string) {
 		// permute data in place
 		for k := lo; k <= hi; k++ {
 			c := util.CharAt(a[k], d) + 1
+
+			// sort each group of same prefix.
 			for first[c] > k {
 				exchange(a, k, next[c])
 				next[c]++

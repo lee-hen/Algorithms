@@ -62,6 +62,7 @@ func sort(lo, hi, d int, a, aux []string) {
 
 	// recursively sort for each character (excludes sentinel -1)
 	for r := 0; r < R; r++ {
+		// lo+count[r], lo+count[r+1]-1 group by same char and then sort each
 		sort(lo+count[r], lo+count[r+1]-1, d+1, a, aux)
 	}
 }

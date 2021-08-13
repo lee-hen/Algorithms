@@ -57,6 +57,8 @@ func sort(lo, hi int, a []string) {
 		// permute data in place
 		// for details and proof see Knuth Theorem 5.1.2B and ch 5.2 excercise 13.
 		for r := hi; r >= lo; r-- {
+
+			// locate element that must be shifted right of r
 			c := util.CharAt(a[r], d) + 1
 			for r >= lo && count[c]-1 <= r {
 				if count[c]-1 == r {

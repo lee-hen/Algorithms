@@ -1,6 +1,14 @@
 package main
 
-import "github.com/lee-hen/Algorithms/util"
+import (
+	"bufio"
+	"fmt"
+	"github.com/lee-hen/Algorithms/util"
+	"io"
+	"log"
+	"os"
+	"strings"
+)
 
 const R = 256
 
@@ -82,4 +90,21 @@ func sort(lo, hi int, a []string) {
 
 func exchange(a []string, i, j int) {
 	a[i], a[j] = a[j], a[i]
+}
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	line, err := reader.ReadString('\n')
+	if err == io.EOF {
+		return
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
+	str := strings.Split(line[:len(line)-1], " ")
+
+	Sort(str)
+	for _, s := range str {
+		fmt.Println(s)
+	}
 }

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/lee-hen/Algorithms/util"
+
 	"bufio"
 	"fmt"
 	"io"
@@ -28,15 +30,6 @@ func Sort(a []string) {
 	sort(0, len(a)-1, 0, a, aux)
 }
 
-// return dth character of s, -1 if d = length of string
-func charAt(s string, d int) int {
-	if d == len(s) {
-		return -1
-	}
-
-	return int(s[d])
-}
-
 // sort from a[lo] to a[hi], starting at the dth character
 func sort(lo, hi, d int, a, aux []string) {
 	if hi <= lo {
@@ -46,7 +39,7 @@ func sort(lo, hi, d int, a, aux []string) {
 	// compute frequency counts
 	count := make([]int, R+2, R+2)
 	for i := lo; i <= hi; i++ {
-		c := charAt(a[i], d)
+		c := util.CharAt(a[i], d)
 		count[c+2]++
 	}
 
@@ -57,7 +50,7 @@ func sort(lo, hi, d int, a, aux []string) {
 
 	// distribute
 	for i := lo; i <= hi; i++ {
-		c := charAt(a[i], d)
+		c := util.CharAt(a[i], d)
 		aux[count[c+1]] = a[i]
 		count[c+1]++
 	}

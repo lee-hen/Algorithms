@@ -23,24 +23,15 @@ func Sort(a []string) {
 	sort(0, len(a)-1, 0, a)
 }
 
-// return the dth character of s, -1 if d = length of s
-func charAt(s string, d int) int {
-	if d == len(s) {
-		return -1
-	}
-
-	return int(s[d])
-}
-
 // 3-way string quicksort a[lo..hi] starting at dth character
 func sort(lo, hi, d int, a []string) {
 	if hi <= lo + CUTOFF {
 		insertion(a, lo, hi, func(v, w string)  bool {
 			for i := d; i < util.Min(len(v), len(w)); i++ {
-				if charAt(v, i) < charAt(w, i) {
+				if util.CharAt(v, i) < util.CharAt(w, i) {
 					return true
 				}
-				if charAt(v, i) > charAt(w, i) {
+				if util.CharAt(v, i) > util.CharAt(w, i) {
 					return false
 				}
 			}
@@ -50,10 +41,10 @@ func sort(lo, hi, d int, a []string) {
 	}
 
 	lt, gt := lo, hi
-	v := charAt(a[lo], d)
+	v := util.CharAt(a[lo], d)
 	mid := lo + 1
 	for mid <= gt {
-		t := charAt(a[mid], d)
+		t := util.CharAt(a[mid], d)
 		if t < v {
 			exchange(a, lt, mid)
 			lt++

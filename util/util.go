@@ -44,6 +44,16 @@ func Eq(v, w int) bool {
 	return v == w
 }
 
+// CharAt
+// return dth character of s, -1 if d = length of string
+func CharAt(s string, d int) int {
+	if d == len(s) {
+		return -1
+	}
+
+	return int(s[d])
+}
+
 // Gcd
 // gcd(888, 54)
 // 888%54=24
@@ -104,3 +114,29 @@ type StringSlice []string
 
 func (p StringSlice) Len() int           { return len(p) }
 func (p StringSlice) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
+
+type Stack []int
+
+func (stack *Stack) Push(arr int) {
+	*stack = append(*stack, arr)
+}
+
+func (stack *Stack) Pop() int {
+	s := *stack
+	last := s[len(s)-1]
+	*stack = s[:len(s)-1]
+	return last
+}
+
+func (stack *Stack) Peek() int {
+	s := *stack
+	return s[len(s)-1]
+}
+
+func (stack *Stack) Size() int {
+	return len(*stack)
+}
+
+func (stack *Stack) IsEmpty() bool {
+	return len(*stack) == 0
+}

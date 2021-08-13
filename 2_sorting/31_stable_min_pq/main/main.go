@@ -1,7 +1,7 @@
 package main
 
 import (
-	stableMinPQ "github.com/lee-hen/Algorithms/2_sorting/28_stable_min_pq"
+	stableMinPQ "github.com/lee-hen/Algorithms/2_sorting/31_stable_min_pq"
 
 	"fmt"
 	"strings"

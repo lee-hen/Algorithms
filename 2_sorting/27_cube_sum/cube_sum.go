@@ -1,7 +1,7 @@
 package main
 
 import (
-	minPQ "github.com/lee-hen/Algorithms/2_sorting/24_cube_sum/min_pq"
+	minPQ "github.com/lee-hen/Algorithms/2_sorting/27_cube_sum/min_pq"
 
 	"fmt"
 )

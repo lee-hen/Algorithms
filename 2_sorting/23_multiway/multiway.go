@@ -1,7 +1,7 @@
 package main
 
 import (
-	idxMinPQ "github.com/lee-hen/Algorithms/2_sorting/19_index_min_pq"
+	idxMinPQ "github.com/lee-hen/Algorithms/2_sorting/22_index_min_pq"
 
 	"fmt"
 )

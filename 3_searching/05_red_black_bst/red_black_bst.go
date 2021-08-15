@@ -229,7 +229,7 @@ func delMax(h *Node) *Node {
 		return nil
 	}
 
-	if !h.Right.isRed() && h.Right.Left.isRed() {
+	if !h.Right.isRed() && !h.Right.Left.isRed() {
 		h = moveRedRight(h)
 	}
 

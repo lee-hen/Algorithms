@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
 	bst "github.com/lee-hen/Algorithms/3_searching/05_red_black_bst"
+
+	"fmt"
 	"strings"
 )
 
@@ -11,7 +12,7 @@ func main() {
 	keys := strings.Split(test, " ")
 
 	n := len(keys)
-	st := bst.RedBlackBst
+	st := bst.NewRedBlackBST()
 
 	for i := 0; i < n; i++ {
 		st.Put(keys[i], i)

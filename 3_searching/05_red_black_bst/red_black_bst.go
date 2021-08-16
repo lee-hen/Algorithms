@@ -7,17 +7,14 @@ import (
 	"log"
 )
 
-var root **Node
-var RedBlackBst *RedBlackBST
-
 type RedBlackBST struct {
 	root *Node // root of BST
 }
 
+// NewRedBlackBST
 // Initializes an empty symbol table.
-func init() {
-	RedBlackBst = &RedBlackBST{}
-	root = &RedBlackBst.root
+func NewRedBlackBST() *RedBlackBST {
+	return &RedBlackBST{}
 }
 
 const (
@@ -63,13 +60,13 @@ func size(x *Node) int {
 // Is this symbol table empty?
 // return true if this symbol table is empty and return false otherwise
 func (bst *RedBlackBST) IsEmpty() bool {
-	return *root == nil
+	return bst.root == nil
 }
 
 // Size
 // Returns the number of key-value pairs in this symbol table.
 func (bst *RedBlackBST) Size() int {
-	return size(*root)
+	return size(bst.root)
 }
 
 // Standard BST search.
@@ -82,7 +79,7 @@ func (bst *RedBlackBST) Get(key string) (bool, int) {
 		log.Fatalln("argument to get() is null")
 	}
 
-	if x := get(*root, key); x != nil {
+	if x := get(bst.root, key); x != nil {
 		return true, x.Value
 	}
 
@@ -125,8 +122,8 @@ func (bst *RedBlackBST) Put(key string, value int) {
 		log.Fatalln("first argument to put() is null")
 	}
 
-	*root = put(*root, key, value)
-	(*root).Color = BLACK
+	bst.root = put(bst.root, key, value)
+	bst.root.Color = BLACK
 }
 
 // insert the key-value pair in the subtree rooted at h
@@ -175,14 +172,14 @@ func (bst *RedBlackBST) DelMin() {
 	}
 
 	// if both children of root are black, set root to red
-	if !(*root).Left.isRed() && !(*root).Right.isRed() {
-		(*root).Color = RED
+	if !bst.root.Left.isRed() && !bst.root.Right.isRed() {
+		bst.root.Color = RED
 	}
 
-	*root = delMin(*root)
+	bst.root = delMin(bst.root)
 
 	if !bst.IsEmpty() {
-		(*root).Color = BLACK
+		bst.root.Color = BLACK
 	}
 }
 
@@ -216,14 +213,14 @@ func (bst *RedBlackBST) DelMax() {
 	}
 
 	// if both children of root are black, set root to red
-	if !(*root).Left.isRed() && !(*root).Right.isRed() {
-		(*root).Color = RED
+	if !bst.root.Left.isRed() && !bst.root.Right.isRed() {
+		bst.root.Color = RED
 	}
 
-	*root = delMax(*root)
+	bst.root = delMax(bst.root)
 
 	if !bst.IsEmpty() {
-		(*root).Color = BLACK
+		bst.root.Color = BLACK
 	}
 }
 
@@ -270,14 +267,14 @@ func (bst *RedBlackBST) Del(key string) {
 	}
 
 	// if both children of root are black, set root to red
-	if !(*root).Left.isRed() && !(*root).Right.isRed() {
-		(*root).Color = RED
+	if !bst.root.Left.isRed() && !bst.root.Right.isRed() {
+		bst.root.Color = RED
 	}
 
-	*root = del(*root, key)
+	bst.root = del(bst.root, key)
 
 	if !bst.IsEmpty() {
-		(*root).Color = BLACK
+		bst.root.Color = BLACK
 	}
 }
 
@@ -417,7 +414,7 @@ func balance(h *Node) *Node {
 // Height
 // Returns the height of the BST (for debugging).
 func (bst *RedBlackBST) Height() int {
-	return (*root).height()
+	return bst.root.height()
 }
 
 func (h *Node) height() int {
@@ -437,7 +434,7 @@ func (bst *RedBlackBST) Min() string {
 		log.Fatalln("calls min() with empty symbol table")
 	}
 
-	return (*root).min().Key
+	return bst.root.min().Key
 }
 
 // the smallest key in subtree rooted at x; null if no such key
@@ -456,7 +453,7 @@ func (bst *RedBlackBST) Max() string {
 		log.Fatalln("calls max() with empty symbol table")
 	}
 
-	return (*root).max().Key
+	return bst.root.max().Key
 }
 
 // the largest key in the subtree rooted at x; null if no such key
@@ -479,7 +476,7 @@ func (bst *RedBlackBST) Floor(key string) string {
 		log.Fatalln("calls floor() with empty symbol table")
 	}
 
-	x := (*root).floor(key)
+	x := bst.root.floor(key)
 
 	if x == nil {
 		fmt.Printf("argument: %s to floor() is too small\n", key)
@@ -522,7 +519,7 @@ func (bst *RedBlackBST) Ceiling(key string) string {
 		log.Fatalln("calls ceiling() with empty symbol table")
 	}
 
-	x := (*root).ceiling(key)
+	x := bst.root.ceiling(key)
 
 	if x == nil {
 		fmt.Printf("argument: %s to ceiling() is too large\n", key)
@@ -564,7 +561,7 @@ func (bst *RedBlackBST) Select(rank int) string {
 		log.Fatalf("argument to select() is invalid: : %d\n", rank)
 	}
 
-	return (*root).pick(rank)
+	return bst.root.pick(rank)
 }
 
 // Return key in BST rooted at x of given rank.
@@ -590,7 +587,7 @@ func (bst *RedBlackBST) Rank(key string) int {
 		log.Fatalln("argument to rank() is null")
 	}
 
-	return (*root).rank(key)
+	return bst.root.rank(key)
 }
 
 // number of keys less than key in the subtree rooted at h
@@ -632,7 +629,7 @@ func (bst *RedBlackBST) KeysBetween(lo, hi string) []string {
 	}
 
 	keys := make([]string, 0)
-	(*root).keys(&keys, lo, hi)
+	bst.root.keys(&keys, lo, hi)
 
 	return keys
 }
@@ -705,7 +702,7 @@ func Check(bst *RedBlackBST) bool {
 }
 
 func (bst *RedBlackBST) isBST() bool {
-	return isBST(*root, "", "")
+	return isBST(bst.root, "", "")
 }
 
 func isBST(x *Node, min, max string) bool {
@@ -725,7 +722,7 @@ func isBST(x *Node, min, max string) bool {
 }
 
 func (bst *RedBlackBST) isSizeConsistent() bool {
-	return isSizeConsistent(*root)
+	return isSizeConsistent(bst.root)
 }
 
 func isSizeConsistent(x *Node) bool {
@@ -759,10 +756,10 @@ func (bst *RedBlackBST) isRankConsistent() bool {
 // Does the tree have no red right links, and at most one (left)
 // red links in a row on any path?
 func (bst *RedBlackBST) is23() bool {
-	return is23(*root)
+	return is23(bst.root, bst.root)
 }
 
-func is23(x *Node) bool {
+func is23(x, root *Node) bool {
 	if x == nil {
 		return true
 	}
@@ -770,17 +767,17 @@ func is23(x *Node) bool {
 		return false
 	}
 
-	if x != *root && x.isRed() && x.Left.isRed() {
+	if x != root && x.isRed() && x.Left.isRed() {
 		return false
 	}
 
-	return is23(x.Left) && is23(x.Right)
+	return is23(x.Left, root) && is23(x.Right, root)
 }
 
 // do all paths from root to leaf have same number of black edges?
 func (bst *RedBlackBST) isBalanced() bool {
 	var black int
-	x := *root
+	x := bst.root
 
 	for x != nil {
 		if !x.isRed() {
@@ -790,7 +787,7 @@ func (bst *RedBlackBST) isBalanced() bool {
 		x = x.Left
 	}
 
-	return (*root).isBalanced(black)
+	return bst.root.isBalanced(black)
 }
 
 // does every path from the root to a leaf have the given number of black links?

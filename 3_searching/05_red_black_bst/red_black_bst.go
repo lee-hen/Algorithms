@@ -145,7 +145,7 @@ func put(h *Node, key string, value int) *Node {
 
 	// fix-up any right-leaning links
 
-	// 右->赤　左->黒 left rotate
+	// 右->赤　左->黒 left rotate, !h.Left.isRed() not required
 	if h.Right.isRed() && !h.Left.isRed()  {
 		h = h.rotateLeft()
 	}
@@ -188,15 +188,23 @@ func (bst *RedBlackBST) DelMin() {
 
 // delete the key-value pair with the minimum key rooted at h
 func delMin(h *Node) *Node {
+	// remove node on bottom level
+	// (h must be RED by invariant)
 	if h.Left == nil {
 		return h.Right
 	}
 
+	// push red link down if necessary
 	if !h.Left.isRed() && !h.Left.Left.isRed() {
 		h = moveRedLeft(h)
 	}
 
+	// move down one level
 	h.Left = delMin(h.Left)
+
+	// fix right-leaning red links
+	// and eliminate 4-nodes
+	// on the way up
 	return balance(h)
 }
 
@@ -220,20 +228,32 @@ func (bst *RedBlackBST) DelMax() {
 }
 
 // delete the key-value pair with the maximum key rooted at h
+// push reds down
+// remove maximum
+// fix right-leaning reds on the way up
 func delMax(h *Node) *Node {
+	// lean 3-nodes to the right
 	if h.Left.isRed() {
 		h = h.rotateRight()
 	}
 
+	// remove node on bottom level
+	// (h must be RED by invariant)
 	if h.Right == nil {
 		return nil
 	}
 
+	// borrow from sibling if necessary
 	if !h.Right.isRed() && !h.Right.Left.isRed() {
 		h = moveRedRight(h)
 	}
 
+	// move down one level
 	h.Right = delMax(h.Right)
+
+	// fix right-leaning red links
+	// and eliminate 4-nodes
+	// on the way up
 	return balance(h)
 }
 
@@ -263,34 +283,51 @@ func (bst *RedBlackBST) Del(key string) {
 
 // delete the key-value pair with the given key rooted at h
 func del(h *Node, key string) *Node {
-	if key < h.Key {
+	if key < h.Key { // LEFT
+		// push red right if necessary move down (left)
 		if !h.Left.isRed() && !h.Left.Left.isRed() {
 			h = moveRedLeft(h)
 		}
 		h.Left = del(h.Left, key)
 	} else {
+		// the same as delete max start
+
+		// rotate to push red right
 		if h.Left.isRed() {
 			h = h.rotateRight()
 		}
 
+		// EQUAL (at bottom)
+		// delete node
 		if key == h.Key && h.Right == nil {
 			return nil
 		}
 
+		// push red right if necessary
 		if !h.Right.isRed() && !h.Right.Left.isRed() {
 			h = moveRedRight(h)
 		}
+		
+		// the same as delete max end
 
 		if key == h.Key {
+			// replace current node with
+			// successor key, value
 			x := h.Right.min()
 			h.Key = x.Key
 			h.Value = x.Value
 
+			//delete successor
 			h.Right = delMin(h.Right)
 		} else {
+			// move down (right)
 			h.Right = del(h.Right, key)
 		}
 	}
+
+	// fix right-leaning red links
+	// and eliminate 4-nodes
+	// on the way up
 	return balance(h)
 }
 
@@ -347,6 +384,7 @@ func moveRedLeft(h *Node) *Node {
 func moveRedRight(h *Node) *Node {
 	flipColors(h)
 
+	// 2-3 node
 	if h.Left.Left.isRed() {
 		h = h.rotateRight()
 		flipColors(h)

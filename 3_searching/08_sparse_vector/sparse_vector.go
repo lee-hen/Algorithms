@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/lee-hen/Algorithms/util"
 	"log"
 	"math"
 )
@@ -137,10 +136,4 @@ func main(){
 
 	fmt.Println("a dot b =", Dot(a, b))
 	fmt.Println("a + b =", Plus(a, b))
-
-
-	for i := 'A'; i <= 'Z'; i++ {
-		hashCode := util.String(string(i))
-		fmt.Println(hashCode* 0x7fffffff %10)
-	}
 }

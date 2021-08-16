@@ -159,11 +159,11 @@ func (h *HashST) Delete(key string) {
 	h.n--
 
 	// halves size of array if it's 12.5% full or less
+	// if n > 0 && n == len(a)/4 resize(len(a)/2)
 	if i > 0 && h.n <= len(h.keys)/8 {
 		h.resize(len(h.keys)/2)
 	}
 }
-
 
 // Keys
 // Returns all keys in this symbol table as an Iterable.

@@ -307,7 +307,7 @@ func del(h *Node, key string) *Node {
 		if !h.Right.isRed() && !h.Right.Left.isRed() {
 			h = moveRedRight(h)
 		}
-		
+
 		// the same as delete max end
 
 		if key == h.Key {

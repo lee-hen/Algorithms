@@ -51,7 +51,7 @@ func (h *HashST) Contains(key string) bool {
 		log.Fatalln("argument to contains() is null")
 	}
 
-	found, _ := h.Get(key)
+	_, found := h.Get(key)
 	return found
 }
 
@@ -68,7 +68,7 @@ func (h *HashST) resize(capacity int) {
 	temp := newHashST(capacity)
 	for i := 0; i < len(h.keys); i++ {
 		if key := h.keys[i]; key != "" {
-			_, val := h.Get(key)
+			val, _ := h.Get(key)
 			temp.Put(key, val)
 		}
 	}
@@ -107,18 +107,18 @@ func (h *HashST) Put(key string, value int) {
 
 // Get
 // Returns the value associated with the specified key.
-func (h *HashST) Get(key string) (bool, int) {
+func (h *HashST) Get(key string) (int, bool) {
 	if key == "" {
 		log.Fatalln("argument to get() is null")
 	}
 
 	for i := h.hash(key); h.keys[i] != ""; i = (i+1) % len(h.keys) {
 		if h.keys[i] == key {
-			return true, h.values[i]
+			return h.values[i], true
 		}
 	}
 
-	return false, 0
+	return 0, false
 }
 
 // Delete
@@ -195,7 +195,7 @@ func Check(h *HashST) bool {
 		if h.keys[i] == "" {
 			continue
 		}
-		_, val := h.Get(h.keys[i])
+		val, _ := h.Get(h.keys[i])
 		if val != h.values[i] {
 			log.Fatalf("get[%s] = %d; vals[i] = %d\n", h.keys[i], val, h.values[i])
 		}

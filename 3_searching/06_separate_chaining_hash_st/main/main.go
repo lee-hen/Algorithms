@@ -15,7 +15,7 @@ func main() {
 	fmt.Println("----------------------------")
 	for i := 32; i <= 127; i++ {
 		key := string(rune(i))
-		_, val := hashSt.Get(key)
+		val, _ := hashSt.Get(key)
 		fmt.Println(key, val)
 		hashSt.Delete(key)
 	}

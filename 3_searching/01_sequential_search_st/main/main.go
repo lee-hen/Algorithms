@@ -28,7 +28,7 @@ func main() {
 	}
 
 	for _, s := range st.Keys() {
-		_, val := st.Get(s)
+		val, _ := st.Get(s)
 		fmt.Printf("%s %d\n", s, val)
 	}
 

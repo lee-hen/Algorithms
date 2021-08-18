@@ -55,37 +55,37 @@ func (st *BinarySearchST) IsEmpty() bool {
 
 // Contains
 // Does this symbol table contain the given key?
-// return true if this symbol table contains {@code key} and
+// return true if this symbol table contains key and
 // return false otherwise
 func (st *BinarySearchST) Contains(key string) bool {
 	if key == "" {
-		log.Fatalln("first argument to put() is null")
+		log.Fatalln("first argument to contains() is null")
 	}
 
-	found, _ := st.Get(key)
+	_, found := st.Get(key)
 	return found
 }
 
 // Get
 // Returns the value associated with the given key in this symbol table.
 // the value associated with the given key if the key is in the symbol table
-// return false, 0 if the key is not in the symbol table
-func (st *BinarySearchST) Get(key string) (bool, int) {
+// return 0, false if the key is not in the symbol table
+func (st *BinarySearchST) Get(key string) (int, bool) {
 	if key == "" {
 		log.Fatalln("argument to get() is null")
 	}
 
 	if st.IsEmpty() {
-		return false, 0
+		return 0, false
 	}
 
 	i := st.Rank(key)
 
 	if i < st.Size() && st.Keys[i] == key {
-		return true, st.Values[i]
+		return st.Values[i], true
 	}
 
-	return false, 0
+	return 0, false
 }
 
 // Rank
@@ -115,8 +115,6 @@ func (st *BinarySearchST) Rank(key string) int {
 // Put
 // Inserts the specified key-value pair into the symbol table, overwriting the old
 // value with the new value if the symbol table already contains the specified key.
-// Deletes the specified key (and its associated value) from this symbol table
-// if the specified value is null.
 func (st *BinarySearchST) Put(key string, value int) {
 	if key == "" {
 		log.Fatalln("first argument to put() is null")

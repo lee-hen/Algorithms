@@ -45,21 +45,21 @@ func (st *SequentialSearchST) Contains(key string) bool {
 	if key == "" {
 		log.Fatalln("argument to contains() is null")
 	}
-	found, _ := st.Get(key)
+	_, found := st.Get(key)
 	return found
 }
 
-func (st *SequentialSearchST) Get(key string) (bool, int) {
+func (st *SequentialSearchST) Get(key string) (int, bool) {
 	if key == "" {
 		log.Fatalln("argument to get() is null")
 	}
 
 	for x := st.First; x != nil; x = x.Next {
 		if key == x.Key {
-			return true, x.Value
+			return  x.Value, true
 		}
 	}
-	return false, 0
+	return 0, false
 }
 
 func (st *SequentialSearchST) Keys() []string {

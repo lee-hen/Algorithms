@@ -67,26 +67,26 @@ func size(x *Node) int {
 
 // Contains
 // Does this symbol table contain the given key?
-// return true if this symbol table contains {@code key} and
+// return true if this symbol table contains key and
 // return false otherwise
 func (bst *BST) Contains(key string) bool {
 	if key == "" {
 		log.Fatalln("argument to contains() is null")
 	}
 
-	found, _ := bst.Get(key)
+	_, found := bst.Get(key)
 	return found
 }
 
 // Get
 // Returns the value associated with the given key.
-// Return false, 0 if the key is not in the symbol table
-func (bst *BST) Get(key string) (bool, int) {
+// Return 0, false if the key is not in the symbol table
+func (bst *BST) Get(key string) (int, bool) {
 	if x := get(bst.root, key); x != nil {
-		return true, x.Value
+		return x.Value, true
 	}
 
-	return false, 0
+	return 0, false
 }
 
 func get(x *Node, key string) *Node {
@@ -110,8 +110,6 @@ func get(x *Node, key string) *Node {
 // Put
 // Inserts the specified key-value pair into the symbol table, overwriting the old
 // value with the new value if the symbol table already contains the specified key.
-// Deletes the specified key (and its associated value) from this symbol table
-// if the specified value is null.
 func (bst *BST) Put(key string, value int) {
 	if key == "" {
 		log.Fatalln("calls put() with a null key")

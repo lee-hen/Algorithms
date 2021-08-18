@@ -44,7 +44,7 @@ func (h *HashST) resize(chains int) {
 	temp := newHashST(chains)
 	for i := 0; i < len(h.st); i++ {
 		for _, key := range h.st[i].Keys() {
-			_, val := h.st[i].Get(key)
+			val, _ := h.st[i].Get(key)
 			temp.Put(key, val)
 		}
 	}
@@ -71,13 +71,13 @@ func (h *HashST) Contains(key string) bool {
 		log.Fatalln("argument to contains() is null")
 	}
 
-	found, _ := h.Get(key)
+	_,  found := h.Get(key)
 	return found
 }
 
 // Get
 // Returns the value associated with the specified key in this symbol table.
-func (h *HashST) Get(key string) (bool, int) {
+func (h *HashST) Get(key string) (int, bool) {
 	if key == "" {
 		log.Fatalln("argument to get() is null")
 	}

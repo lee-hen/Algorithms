@@ -73,17 +73,17 @@ func (bst *RedBlackBST) Size() int {
 
 // Get
 // Returns the value associated with the given key if the key is in the symbol table
-// Return false, 0 if the key is not in the symbol table
-func (bst *RedBlackBST) Get(key string) (bool, int) {
+// Return 0, false if the key is not in the symbol table
+func (bst *RedBlackBST) Get(key string) (int, bool) {
 	if key == "" {
 		log.Fatalln("argument to get() is null")
 	}
 
 	if x := get(bst.root, key); x != nil {
-		return true, x.Value
+		return  x.Value, true
 	}
 
-	return false, 0
+	return 0, false
 }
 
 // value associated with the given key in subtree rooted at x; null if no such key
@@ -103,10 +103,10 @@ func get(x *Node, key string) *Node {
 
 // Contains
 // Does this symbol table contain the given key?
-// return true if this symbol table contains {@code key} and
+// return true if this symbol table contains key and
 // return false otherwise
 func (bst *RedBlackBST) Contains(key string) bool {
-	found, _ := bst.Get(key)
+	_, found := bst.Get(key)
 	return found
 }
 
@@ -115,8 +115,6 @@ func (bst *RedBlackBST) Contains(key string) bool {
 // Put
 // Inserts the specified key-value pair into the symbol table, overwriting the old
 // value with the new value if the symbol table already contains the specified key.
-// Deletes the specified key (and its associated value) from this symbol table
-// if the specified value is null.
 func (bst *RedBlackBST) Put(key string, value int) {
 	if key == "" {
 		log.Fatalln("first argument to put() is null")

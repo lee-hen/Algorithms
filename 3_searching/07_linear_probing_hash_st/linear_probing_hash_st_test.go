@@ -16,7 +16,7 @@ func TestCase1(t *testing.T) {
 
 	for i := 32; i <= 127; i++ {
 		key := string(rune(i))
-		_, val := hashSt.Get(key)
+		val, _ := hashSt.Get(key)
 		require.Equal(t, i, val)
 		hashSt.Delete(key)
 		require.True(t, Check(hashSt))

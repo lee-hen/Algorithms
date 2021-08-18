@@ -26,7 +26,7 @@ func main() {
 	fmt.Println("Testing keys()")
 	fmt.Println("--------------------------------")
 	for _, s := range st.Keys() {
-		_, val := st.Get(s)
+		val, _ := st.Get(s)
 		fmt.Printf("%s  %d\n", s, val)
 	}
 	fmt.Println("")
@@ -67,7 +67,7 @@ func main() {
 	fmt.Printf("After deleting the smallest %d keys\n",  st.Size() / 2)
 	fmt.Println("--------------------------------")
 	for _, s := range st.Keys() {
-		_, val := st.Get(s)
+		val, _ := st.Get(s)
 		fmt.Printf("%s  %d\n", s, val)
 	}
 	fmt.Println()
@@ -79,7 +79,7 @@ func main() {
 	fmt.Println("After deleting the remaining keys")
 	fmt.Println("--------------------------------")
 	for _, s := range st.Keys() {
-		_, val := st.Get(s)
+		val, _ := st.Get(s)
 		fmt.Printf("%s  %d\n", s, val)
 	}
 	fmt.Println()
@@ -90,7 +90,7 @@ func main() {
 		st.Put(keys[i], i)
 	}
 	for _, s := range st.Keys() {
-		_, val := st.Get(s)
+		val, _ := st.Get(s)
 		fmt.Printf("%s  %d\n", s, val)
 	}
 	fmt.Println()

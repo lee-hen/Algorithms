@@ -107,7 +107,7 @@ func Search(txt string) int {
 
 	// check for hash match; if hash match, check for exact match
 	for i := m; i < n; i++ {
-		// Remove leading digit, add trailing digit, check for match.
+		// Remove leading(first) digit, add trailing digit, check for match.
 		txtHash = (txtHash + q - RM * int64(txt[i-m]) % q) % q
 		txtHash = (txtHash * R + int64(txt[i])) % q
 

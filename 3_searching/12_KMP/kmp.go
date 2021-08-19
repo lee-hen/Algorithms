@@ -54,6 +54,7 @@ func KMP(pat string) {
 
 	dfa[pat[0]][0] = 1
 	for x, j := 0, 1; j < m; j++ {
+		// x = dfa[pat[j-1]][x]
 		for c := 0; c < R; c++ {
 			dfa[c][j] = dfa[c][x] // Copy mismatch cases.
 		}

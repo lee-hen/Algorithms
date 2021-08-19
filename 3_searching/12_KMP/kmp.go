@@ -39,7 +39,7 @@ import (
 
 const R = 256 // the radix
 var m int // length of pattern
-var dfa [][]int  // the KMP automoton deterministic finite-state automaton
+var dfa [][]int  // the KMP deterministic finite-state automaton
 
 // KMP
 // Preprocesses the pattern string.

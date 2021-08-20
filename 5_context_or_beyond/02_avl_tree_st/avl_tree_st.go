@@ -55,7 +55,6 @@ func size(x *Node) int {
 	return x.size
 }
 
-
 // Height
 // Returns the height of the internal AVL tree. It is assumed that the
 // height of an empty tree is -1 and the height of a tree with just one node
@@ -71,7 +70,6 @@ func height(x *Node) int {
 	}
 	return x.height
 }
-
 
 // Get
 // Returns the value associated with the given key.
@@ -169,7 +167,6 @@ func balanceFactor(x *Node) int {
 	return height(x.Left) - height(x.Right)
 }
 
-
 // Rotates the given subtree to the right.
 func (x *Node) rotateRight() *Node {
 	y := x.Left
@@ -234,7 +231,6 @@ func del(x *Node, key string) *Node {
 	return balance(x)
 }
 
-
 // DelMin
 // Removes the smallest key and associated value from the symbol table.
 func (tree *AVLTree) DelMin() {
@@ -279,8 +275,6 @@ func delMax(x *Node) *Node {
 	x.height = 1 + util.Max(height(x.Left), height(x.Right))
 	return balance(x)
 }
-
-// Ordered symbol table methods.
 
 // Min
 // Returns the smallest key in the symbol table.

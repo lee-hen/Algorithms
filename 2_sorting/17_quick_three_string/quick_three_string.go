@@ -19,7 +19,7 @@ const CUTOFF = 15
 // then (recursively) using the same method on the subarrays, we should not be surprised that the total number of operations is about the same as for normal quicksort—but they are single-character compares, not full-key compares.
 // Second, considering the method as replacing key-indexed counting by quicksort, we expect that the N logR N running time from PROPOSITION D should be multiplied by a factor of 2 ln R because it takes quicksort 2R ln R steps to sort R characters, as opposed to R steps for the same characters in the MSD string sort. We omit the full proof.
 func Sort(a []string) {
-	util.ReverseStringSlice(a)
+	util.ShuffleStringSlice(a)
 	sort(0, len(a)-1, 0, a)
 }
 

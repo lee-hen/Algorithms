@@ -55,6 +55,16 @@ func CharAt(s string, d int) int {
 	return int(s[d])
 }
 
+// ByteAt
+// return dth byte of b, -1 if d = length of []byte
+func ByteAt(b []byte, d int) int {
+	if d == len(b) {
+		return -1
+	}
+
+	return int(b[d])
+}
+
 // Gcd
 // gcd(888, 54)
 // 888%54=24

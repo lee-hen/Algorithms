@@ -25,26 +25,6 @@ func newEdge(v, w int) *Edge {
 	return &Edge{v ,w}
 }
 
-func (e *Edge) CompareTo(other *Edge) int {
-	if e.V < other.V {
-		return -1
-	}
-
-	if e.V > other.V {
-		return +1
-	}
-
-	if e.W < other.W {
-		return -1
-	}
-
-	if e.W > other.W {
-		return +1
-	}
-
-	return 0
-}
-
 // Simple
 // Returns a random simple graph containing v vertices and e edges.
 func Simple(v, e int) *graph.Graph {

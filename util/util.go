@@ -2,6 +2,7 @@ package util
 
 import (
 	"hash/crc32"
+	"log"
 	"math/rand"
 	"time"
 )
@@ -165,4 +166,15 @@ func String(s string) int {
 		return -v
 	}
 	return 0
+}
+
+// Bernoulli
+// Returns a random boolean from a Bernoulli distribution with success
+// probability p
+func Bernoulli(p float64) bool {
+	if !(p >= 0.0 && p <= 1.0) {
+		log.Fatalln("probability p must be between 0.0 and 1.0: ", p)
+	}
+	rand.Seed(time.Now().UnixNano())
+	return rand.Float64() < p
 }

@@ -22,12 +22,11 @@ func main()  {
 	}
 	source = strings.Replace(source, "\n", "", -1)
 
-
 	if !sg.Contains(source) {
 		log.Fatalln(source + " not in database.")
 	}
-	g, s := sg.Graph(), sg.IndexOf(source)
 
+	g, s := sg.Graph(), sg.IndexOf(source)
 	bfs := path.BreadthFirstPaths(g, s)
 
 	for {

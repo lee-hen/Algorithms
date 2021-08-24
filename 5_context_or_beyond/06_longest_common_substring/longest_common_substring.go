@@ -3,6 +3,7 @@ package main
 import (
 	suffix "github.com/lee-hen/Algorithms/5_context_or_beyond/04_suffix_array_x"
 	"github.com/lee-hen/Algorithms/util"
+	"os"
 
 	"fmt"
 	"io/ioutil"
@@ -73,11 +74,12 @@ func Lcs(s, t string) string {
 func main() {
 	var err error
 	var content1, content2 []byte
-	content1, err = ioutil.ReadFile("mobydick.txt")
+	pwd, _ := os.Getwd()
+	content1, err = ioutil.ReadFile(pwd + "/data/mobydick.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	content2, err = ioutil.ReadFile("tale.txt")
+	content2, err = ioutil.ReadFile(pwd + "/data/tale.txt")
 	if err != nil {
 		log.Fatal(err)
 	}

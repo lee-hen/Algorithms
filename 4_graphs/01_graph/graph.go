@@ -145,6 +145,6 @@ func (graph *Graph) String() string {
 
 func (graph *Graph) validateVertex(v int) {
 	if v < 0 || v >= graph.V {
-		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, v-1))
+		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, graph.V-1))
 	}
 }

@@ -49,6 +49,6 @@ func (search *DepthFirstSearch) Count() int {
 
 func (search *DepthFirstSearch) validateVertex(v int) {
 	if v < 0 || v >= len(search.marked) {
-		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, v-1))
+		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, len(search.marked)-1))
 	}
 }

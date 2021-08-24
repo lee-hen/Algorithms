@@ -217,7 +217,7 @@ func EulerianCycle(v, e int) *graph.Graph {
 // EulerianPath
 // Returns an Eulerian cycle graph on v vertices.
 func EulerianPath(v, e int) *graph.Graph {
-	if e <= 0 {
+	if e < 0 {
 		log.Fatalln("An Eulerian cycle must have at least one edge")
 	}
 

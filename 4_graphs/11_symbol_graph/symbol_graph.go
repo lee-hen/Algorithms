@@ -1,11 +1,10 @@
 package symbol_graph
 
 import (
-	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
-
 	"bufio"
 	"bytes"
 	"fmt"
+	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
 	"io"
 	"strings"
 )
@@ -34,9 +33,9 @@ func New(reader io.Reader, delimiter string) *SymbolGraph {
 	line, _, err := fileName.ReadLine()
 	for ; err != io.EOF; line, _, err = fileName.ReadLine() {
 		a := strings.Split(string(line), delimiter)
-		for i := 0; i < len(a); i++ {
-			if _, ok := sg.st[a[i]]; !ok {
-				sg.st[a[i]] = len(sg.st)
+		for _, s := range a {
+			if _, ok := sg.st[s]; !ok {
+				sg.st[s] = len(sg.st)
 			}
 		}
 	}
@@ -48,7 +47,6 @@ func New(reader io.Reader, delimiter string) *SymbolGraph {
 		sg.keys[sg.st[name]] = name
 	}
 
-
 	// second pass builds the graph by connecting first vertex on each
 	// line to all others
 	sg.graph = graph.NewGraph(len(sg.st))
@@ -57,6 +55,7 @@ func New(reader io.Reader, delimiter string) *SymbolGraph {
 	line, _, err = fileName.ReadLine()
 	for ; err != io.EOF; line, _, err = fileName.ReadLine() {
 		a := strings.Split(string(line), delimiter)
+
 		v := sg.st[a[0]]
 		for i := 1; i < len(a); i++ {
 			w := sg.st[a[i]]

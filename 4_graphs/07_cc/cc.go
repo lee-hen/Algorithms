@@ -2,8 +2,6 @@ package cc
 
 import (
 	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
-
-	"fmt"
 )
 
 // Proposition C. DFS uses preprocessing time and space proportional to V+E to support constant-time connectivity queries in a graph.
@@ -55,14 +53,12 @@ func (cc *CC) dfs(g *graph.Graph, v int) {
 // ID
 // Returns the component id of the connected component containing vertex v.
 func (cc *CC) ID(v int) int {
-	cc.validateVertex(v)
 	return cc.id[v]
 }
 
 // Size
 // Returns the number of vertices in the connected component containing vertex v
 func (cc *CC) Size(v int) int {
-	cc.validateVertex(v)
 	return cc.size[cc.id[v]]
 }
 
@@ -76,29 +72,6 @@ func (cc *CC) Count() int {
 // Returns true if vertices v and w are in the same
 // connected component.
 func (cc *CC) Connected(v, w int) bool {
-	cc.validateVertex(v)
-	cc.validateVertex(w)
 	return cc.id[v] == cc.id[w]
 }
-
-func (cc *CC) validateVertex(v int) {
-	if v < 0 || v >= len(cc.marked) {
-		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, len(cc.marked)-1))
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

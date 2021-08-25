@@ -39,7 +39,6 @@ func BreadthFirstPaths(g *graph.Graph, s int) *Paths {
 	search.distTo = make(map[int]int)
 	for v := 0; v < g.V; v++ {
 		search.distTo[v] = INFINITY
-		search.marked[v] = false
 	}
 
 	search.bfs(g, s)
@@ -82,7 +81,6 @@ func BreadthFirstPathsMulti(g *graph.Graph, sources []int) *Paths {
 	for v := 0; v < g.V; v++ {
 		search.distTo[v] = INFINITY
 	}
-	search.validateVertices(sources)
 	search.bfsMulti(g, sources)
 	return search
 }
@@ -115,7 +113,6 @@ func  (search *Paths) bfsMulti(g *graph.Graph, sources []int) {
 // HasPathTo
 // Is there a path between the source vertex s and vertex v?
 func (search *Paths) HasPathTo(v int) bool {
-	search.validateVertex(v)
 	return search.marked[v]
 }
 
@@ -123,7 +120,6 @@ func (search *Paths) HasPathTo(v int) bool {
 // Returns the number of edges in a shortest path between the source vertex s
 // (or sources) and vertex v?
 func (search *Paths) DistTo(v int) int {
-	search.validateVertex(v)
 	return search.distTo[v]
 }
 
@@ -132,8 +128,6 @@ func (search *Paths) DistTo(v int) int {
 // Returns a shortest path between the source vertex s (or sources)
 // and v, or nil if no such path.
 func (search *Paths) PathTo(v int) []int {
-	search.validateVertex(v)
-
 	if !search.HasPathTo(v) {
 		return nil
 	}
@@ -146,28 +140,6 @@ func (search *Paths) PathTo(v int) []int {
 
 	path.Push(x)
 	return path
-}
-
-
-func (search *Paths) validateVertex(v int) {
-	if v < 0 || v >= len(search.marked) {
-		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, len(search.marked)-1))
-	}
-}
-
-func (search *Paths) validateVertices(vertices []int) {
-	if vertices == nil {
-		panic(fmt.Sprint("argument is null"))
-	}
-
-	var count int
-	for _, v := range vertices {
-		count++
-		search.validateVertex(v)
-	}
-	if count == 0 {
-		panic(fmt.Sprint("zero vertices"))
-	}
 }
 
 func (search *Paths) check(g *graph.Graph, s int) bool{

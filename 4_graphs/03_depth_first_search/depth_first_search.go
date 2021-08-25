@@ -2,10 +2,7 @@ package depth_first_search
 
 import (
 	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
-
-	"fmt"
 )
-
 
 // Proposition A. DFS marks all the vertices connected to a given source in time proportional to the sum of their degrees.
 // Proof: First, we prove that the algorithm marks all the vertices connected to the source s (and no others).
@@ -39,16 +36,9 @@ func (search *DepthFirstSearch) dfs(g *graph.Graph, v int) {
 }
 
 func (search *DepthFirstSearch) Marked(v int) bool {
-	search.validateVertex(v)
 	return search.marked[v]
 }
 
 func (search *DepthFirstSearch) Count() int {
 	return search.count
-}
-
-func (search *DepthFirstSearch) validateVertex(v int) {
-	if v < 0 || v >= len(search.marked) {
-		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, len(search.marked)-1))
-	}
 }

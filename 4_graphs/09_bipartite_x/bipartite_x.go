@@ -4,7 +4,6 @@ import (
 	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
 	"github.com/lee-hen/Algorithms/util"
 
-	"fmt"
 	"log"
 )
 
@@ -28,10 +27,6 @@ func New(g *graph.Graph) *BipartiteX {
 	b.isBipartite = true
 	b.color = make(map[int]bool)
 	b.marked = make(map[int]bool)
-	for v := 0; v < g.V; v++ {
-		b.marked[v] = false
-		b.color[v] = false
-	}
 	b.edgeTo = make([]int, g.V, g.V)
 
 	for v := 0; v < g.V && b.isBipartite; v++ {
@@ -99,8 +94,6 @@ func (b *BipartiteX) IsBipartite() bool{
 // Color
 // Returns the side of the bipartite that vertex v is on.
 func (b *BipartiteX) Color(v int) bool{
-	b.validateVertex(v)
-
 	if !b.isBipartite {
 		log.Fatalln("graph is not bipartite")
 	}
@@ -143,10 +136,4 @@ func (b *BipartiteX) check(g *graph.Graph) bool {
 	}
 
 	return true
-}
-
-func (b *BipartiteX) validateVertex(v int) {
-	if v < 0 || v >= len(b.marked) {
-		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, len(b.marked)-1))
-	}
 }

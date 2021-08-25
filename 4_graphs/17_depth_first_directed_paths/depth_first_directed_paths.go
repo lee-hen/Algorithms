@@ -1,13 +1,9 @@
-package depth_first_paths
+package depth_first_directed_paths
 
 import (
-	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
+	graph "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
 	"github.com/lee-hen/Algorithms/util"
 )
-
-// Proposition A (continued). DFS allows us to provide clients with a path from a given source to any marked vertex in time proportional its length.
-// Proof: By induction on the number of vertices visited, it follows that the edgeTo[] array in DepthFirstPaths represents a tree rooted at the source.
-// The pathTo() method builds the path in time proportional to its length.
 
 type Paths struct {
 	marked map[int]bool  // marked[v] = is there an s-v path?
@@ -15,7 +11,7 @@ type Paths struct {
 	s int                // source vertex
 }
 
-func DepthFirstPaths(g *graph.Graph, s int) *Paths {
+func DepthFirstDirectedPaths(g *graph.Digraph, s int) *Paths {
 	search := &Paths{s:s}
 	search.edgeTo = make(map[int]int)
 	search.marked = make(map[int]bool)
@@ -23,7 +19,7 @@ func DepthFirstPaths(g *graph.Graph, s int) *Paths {
 	return search
 }
 
-func (search *Paths) dfs(g *graph.Graph, v int) {
+func (search *Paths) dfs(g *graph.Digraph, v int) {
 	search.marked[v] = true
 
 	for i := len(g.Adj(v))-1; i >= 0; i-- {
@@ -57,3 +53,4 @@ func (search *Paths) PathTo(v int) []int {
 	path.Push(search.s)
 	return path
 }
+

@@ -3,7 +3,6 @@ package bipartite
 import (
 	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
 
-	"fmt"
 	"github.com/lee-hen/Algorithms/util"
 	"log"
 )
@@ -72,8 +71,6 @@ func (b *Bipartite) IsBipartite() bool{
 // Color
 // Returns the side of the bipartite that vertex v is on.
 func (b *Bipartite) Color(v int) bool{
-	b.validateVertex(v)
-
 	if !b.isBipartite {
 		log.Fatalln("graph is not bipartite")
 	}
@@ -117,16 +114,3 @@ func (b *Bipartite) check(g *graph.Graph) bool {
 
 	return true
 }
-
-func (b *Bipartite) validateVertex(v int) {
-	if v < 0 || v >= len(b.marked) {
-		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, len(b.marked)-1))
-	}
-}
-
-
-
-
-
-
-

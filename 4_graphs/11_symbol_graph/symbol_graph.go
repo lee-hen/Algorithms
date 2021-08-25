@@ -1,10 +1,10 @@
 package symbol_graph
 
 import (
+	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
+
 	"bufio"
 	"bytes"
-	"fmt"
-	graph "github.com/lee-hen/Algorithms/4_graphs/01_graph"
 	"io"
 	"strings"
 )
@@ -89,7 +89,6 @@ func (sg *SymbolGraph) IndexOf(s string) int {
 // NameOf
 // Returns the name of the vertex associated with the integer v.
 func (sg *SymbolGraph) NameOf(v int) string {
-	sg.validateVertex(v)
 	return sg.keys[v]
 }
 
@@ -98,10 +97,4 @@ func (sg *SymbolGraph) NameOf(v int) string {
 // not to mutate the graph.
 func (sg *SymbolGraph) Graph() *graph.Graph {
 	return sg.graph
-}
-
-func (sg *SymbolGraph) validateVertex(v int) {
-	if v < 0 || v >= sg.graph.V {
-		panic(fmt.Sprintf("vertex %d is not between 0 and %d", v, sg.graph.V-1))
-	}
 }

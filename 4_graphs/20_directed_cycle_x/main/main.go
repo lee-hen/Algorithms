@@ -2,7 +2,7 @@ package main
 
 import (
 	gen "github.com/lee-hen/Algorithms/4_graphs/14_digraph_generator"
-	cycle "github.com/lee-hen/Algorithms/5_context_or_beyond/09_directed_cycle_x"
+	cycle "github.com/lee-hen/Algorithms/4_graphs/20_directed_cycle_x"
 
 	"fmt"
 	"log"

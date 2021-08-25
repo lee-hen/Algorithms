@@ -31,43 +31,6 @@ func NewDigraph(g *graph.Digraph) *DepthFirstOrder {
 	return search
 }
 
-//
-//func NewEdgeWeightedDigraph(g *graph.EdgeWeightedDigraph) *DepthFirstOrder {
-//	search := &DepthFirstOrder{}
-//	search.Pre = make(map[int]int)
-//	search.Post = make(map[int]int)
-//	search.PostOrder = make([]int, 0)
-//	search.PreOrder = make([]int, 0)
-//	search.marked = make(map[int]bool)
-//
-//	for v := 0; v < g.V; v++ {
-//		if !search.marked[v] {
-//			search.dfsEdgeWeighted(g, v)
-//		}
-//	}
-//
-//	return search
-//}
-//
-//func (search *DepthFirstOrder) dfsEdgeWeighted(g *graph.EdgeWeightedDigraph, v int) {
-//	search.marked[v] = true
-//	search.Pre[v] = search.preCounter
-//	search.preCounter++
-//	search.PreOrder = append(search.PreOrder, v)
-//
-//	for i := len(g.Adj(v))-1; i >= 0; i-- {
-//		w := g.Adj(v)[i]
-//		if !search.marked[w] {
-//			search.dfsEdgeWeighted(g, w)
-//		}
-//	}
-//
-//	search.Post[v] = search.postCounter
-//	search.postCounter++
-//	search.PostOrder = append(search.PostOrder, v)
-//
-//}
-
 func (search *DepthFirstOrder) dfs(g *graph.Digraph, v int) {
 	search.marked[v] = true
 	search.Pre[v] = search.preCounter
@@ -86,6 +49,43 @@ func (search *DepthFirstOrder) dfs(g *graph.Digraph, v int) {
 	search.PostOrder = append(search.PostOrder, v)
 
 }
+
+//
+//func NewEdgeWeightedDigraph(g *graph.EdgeWeightedDigraph) *DepthFirstOrder {
+//	search := &DepthFirstOrder{}
+//	search.Pre = make(map[int]int)
+//	search.Post = make(map[int]int)
+//	search.PostOrder = make([]int, 0)
+//	search.PreOrder = make([]int, 0)
+//	search.marked = make(map[int]bool)
+//
+//	for v := 0; v < g.V; v++ {
+//		if !search.marked[v] {
+//			search.dfs2(g, v)
+//		}
+//	}
+//
+//	return search
+//}
+//
+//func (search *DepthFirstOrder) dfs2(g *graph.EdgeWeightedDigraph, v int) {
+//	search.marked[v] = true
+//	search.Pre[v] = search.preCounter
+//	search.preCounter++
+//	search.PreOrder = append(search.PreOrder, v)
+//
+//	for i := len(g.Adj(v))-1; i >= 0; i-- {
+//		w := g.Adj(v)[i]
+//		if !search.marked[w] {
+//			search.dfs2(g, w)
+//		}
+//	}
+//
+//	search.Post[v] = search.postCounter
+//	search.postCounter++
+//	search.PostOrder = append(search.PostOrder, v)
+//
+//}
 
 func (search *DepthFirstOrder) ReversePost() []int {
 	reverse := make([]int, 0)

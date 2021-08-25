@@ -3,7 +3,7 @@ package main
 import (
 	graph "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
 	gen "github.com/lee-hen/Algorithms/4_graphs/14_digraph_generator"
-	eulerianCycle "github.com/lee-hen/Algorithms/5_context_or_beyond/10_directed_eulerian_cycle"
+	eulerianCycle "github.com/lee-hen/Algorithms/5_context_or_beyond/09_directed_eulerian_cycle"
 	"github.com/lee-hen/Algorithms/util"
 
 	"fmt"

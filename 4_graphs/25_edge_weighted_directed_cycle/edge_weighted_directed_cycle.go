@@ -32,7 +32,7 @@ func New(g *graph.EdgeWeightedDigraph) *EdgeWeightedDirectedCycle {
 		}
 	}
 
-	//cycle.check()
+	cycle.check()
 	return cycle
 }
 

@@ -19,13 +19,13 @@ func newEdge(v, w int) *Edge {
 		v, w = w, v
 	}
 
-	return &Edge{v ,w}
+	return &Edge{v, w}
 }
 
 // Simple
 // Returns a random simple digraph containing V vertices and E edges.
 func Simple(v, e int) *graph.Digraph {
-	if e > v * (v - 1) {
+	if e > v*(v-1) {
 		log.Fatalln("Too many edges")
 	}
 	if e < 0 {
@@ -57,7 +57,7 @@ func SimpleProb(v int, p float64) *graph.Digraph {
 	}
 	g := graph.NewDigraph(v)
 	for v := 0; v < g.V; v++ {
-		for w := v+1; w < g.V; w++ {
+		for w := v + 1; w < g.V; w++ {
 			if util.Bernoulli(p) {
 				g.AddEdge(v, w)
 			}
@@ -88,7 +88,7 @@ func Complete(v int) *graph.Digraph {
 // Returns a random simple DAG containing v vertices and e edges.
 // Note: it is not uniformly selected at random among all such DAGs.
 func Dag(v, e int) *graph.Digraph {
-	if e > v * (v - 1)/2 {
+	if e > v*(v-1)/2 {
 		log.Fatalln("Too many edges")
 	}
 	if e < 0 {
@@ -102,10 +102,12 @@ func Dag(v, e int) *graph.Digraph {
 		vertices[i] = i
 	}
 	util.ShuffleIntSlice(vertices)
+
 	rand.Seed(time.Now().UnixNano())
+	V := g.V
 	for g.E < e {
-		v := rand.Intn(g.V)
-		w := rand.Intn(g.V)
+		v := rand.Intn(V)
+		w := rand.Intn(V)
 		edge := newEdge(v, w)
 		if _, ok := set[key(edge)]; !ok && v < w {
 			set[key(edge)] = struct{}{}
@@ -115,7 +117,6 @@ func Dag(v, e int) *graph.Digraph {
 	return g
 }
 
-
 // Tournament
 // Returns a random tournament digraph on V vertices. A tournament digraph
 // is a digraph in which, for every pair of vertices, there is one and only one
@@ -124,7 +125,7 @@ func Tournament(v int) *graph.Digraph {
 	g := graph.NewDigraph(v)
 	rand.Seed(time.Now().UnixNano())
 	for v := 0; v < g.V; v++ {
-		for w := v+1; w < g.V; w++ {
+		for w := v + 1; w < g.V; w++ {
 			if util.Bernoulli(0.5) {
 				g.AddEdge(v, w)
 			} else {
@@ -149,13 +150,12 @@ func CompleteRootedInDAG(v int) *graph.Digraph {
 	}
 	util.ShuffleIntSlice(vertices)
 	for i := 0; i < g.V; i++ {
-		for j := i+1; j < g.V; j++ {
+		for j := i + 1; j < g.V; j++ {
 			g.AddEdge(vertices[i], vertices[j])
 		}
 	}
 	return g
 }
-
 
 // RootedInDAG
 // Returns a random rooted-in DAG on V vertices and E edges.
@@ -163,7 +163,7 @@ func CompleteRootedInDAG(v int) *graph.Digraph {
 // reachable from every other vertex.
 // The DAG returned is not chosen uniformly at random among all such DAGs.
 func RootedInDAG(v, e int) *graph.Digraph {
-	if e > v * (v - 1)/2 {
+	if e > v*(v-1)/2 {
 		log.Fatalln("Too many edges")
 	}
 	if e < v-1 {
@@ -183,18 +183,18 @@ func RootedInDAG(v, e int) *graph.Digraph {
 
 	// one edge pointing from each vertex, other than the root = vertices[V-1]
 	for v := 0; v < g.V-1; v++ {
-		min := v+1
+		min := v + 1
 		max := g.V
-		w := rand.Intn(max - min) + min
+		w := rand.Intn(max-min) + min
 		edge := newEdge(v, w)
 		set[key(edge)] = struct{}{}
 		g.AddEdge(vertices[v], vertices[w])
 	}
 
-
+	V := g.V
 	for g.E < e {
-		v := rand.Intn(g.V)
-		w := rand.Intn(g.V)
+		v := rand.Intn(V)
+		w := rand.Intn(V)
 		edge := newEdge(v, w)
 		if _, ok := set[key(edge)]; !ok && v < w {
 			set[key(edge)] = struct{}{}
@@ -217,7 +217,7 @@ func CompleteRootedOutDAG(v, e int) *graph.Digraph {
 	}
 	util.ShuffleIntSlice(vertices)
 	for i := 0; i < g.V; i++ {
-		for j := i+1; j < g.V; j++ {
+		for j := i + 1; j < g.V; j++ {
 			g.AddEdge(vertices[j], vertices[i])
 		}
 	}
@@ -225,14 +225,13 @@ func CompleteRootedOutDAG(v, e int) *graph.Digraph {
 	return g
 }
 
-
 // RootedOutDAG
 // Returns a random rooted-out DAG on V vertices and E edges.
 // A rooted out-tree is a DAG in which every vertex is reachable from a
 // single vertex.
 // The DAG returned is not chosen uniformly at random among all such DAGs.
 func RootedOutDAG(v, e int) *graph.Digraph {
-	if e > v * (v - 1)/2 {
+	if e > v*(v-1)/2 {
 		log.Fatalln("Too many edges")
 	}
 	if e < v-1 {
@@ -252,18 +251,18 @@ func RootedOutDAG(v, e int) *graph.Digraph {
 
 	// one edge pointing from each vertex, other than the root = vertices[V-1]
 	for v := 0; v < g.V-1; v++ {
-		min := v+1
+		min := v + 1
 		max := g.V
-		w := rand.Intn(max - min) + min
+		w := rand.Intn(max-min) + min
 		edge := newEdge(w, v)
 		set[key(edge)] = struct{}{}
 		g.AddEdge(vertices[w], vertices[v])
 	}
 
-
+	V := g.V
 	for g.E < e {
-		v := rand.Intn(g.V)
-		w := rand.Intn(g.V)
+		v := rand.Intn(V)
+		w := rand.Intn(V)
 		edge := newEdge(w, v)
 		if _, ok := set[key(edge)]; !ok && v < w {
 			set[key(edge)] = struct{}{}
@@ -281,8 +280,6 @@ func RootedOutDAG(v, e int) *graph.Digraph {
 func RootedInTree(v int) *graph.Digraph {
 	return RootedInDAG(v, v-1)
 }
-
-
 
 // RootedOutTree
 // Returns a random rooted-out tree on V vertices. A rooted out-tree
@@ -393,7 +390,6 @@ func EulerianPath(v, e int) *graph.Digraph {
 	return g
 }
 
-
 // Strong
 // Returns a random simple digraph on V vertices, E
 // edges and (at least) c strong components. The vertices are randomly
@@ -412,7 +408,7 @@ func Strong(v, e, c int) *graph.Digraph {
 		log.Fatalln("Number of edges must be at least 2(V-c)")
 	}
 
-	if e >  v*(v-1) / 2 {
+	if e > v*(v-1)/2 {
 		log.Fatalln("Too many edges")
 	}
 
@@ -451,9 +447,9 @@ func Strong(v, e, c int) *graph.Digraph {
 
 		// rooted-in tree with root = vertices[count-1]
 		for v := 0; v < count-1; v++ {
-			min := v+1
+			min := v + 1
 			max := count
-			w := rand.Intn(max - min + 1) + min
+			w := rand.Intn(max-min+1) + min
 			edge := newEdge(w, v)
 			set[key(edge)] = struct{}{}
 			g.AddEdge(vertices[w], vertices[v])
@@ -461,19 +457,19 @@ func Strong(v, e, c int) *graph.Digraph {
 
 		// rooted-out tree with root = vertices[count-1]
 		for v := 0; v < count-1; v++ {
-			min := v+1
+			min := v + 1
 			max := count
-			w := rand.Intn(max - min + 1) + min
+			w := rand.Intn(max-min+1) + min
 			edge := newEdge(v, w)
 			set[key(edge)] = struct{}{}
 			g.AddEdge(vertices[v], vertices[w])
 		}
 	}
 
-
+	V := g.V
 	for g.E < e {
-		v := rand.Intn(g.V)
-		w := rand.Intn(g.V)
+		v := rand.Intn(V)
+		w := rand.Intn(V)
 		edge := newEdge(v, w)
 		if _, ok := set[key(edge)]; !ok && v != w && label[v] <= label[w] {
 			set[key(edge)] = struct{}{}
@@ -487,4 +483,3 @@ func Strong(v, e, c int) *graph.Digraph {
 func key(edge *Edge) string {
 	return fmt.Sprintf("%v:%d", edge.V, edge.W)
 }
-

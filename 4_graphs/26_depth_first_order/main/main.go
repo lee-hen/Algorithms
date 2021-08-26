@@ -2,7 +2,7 @@ package main
 
 import (
 	graph "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
-	depthFirstOrder "github.com/lee-hen/Algorithms/4_graphs/21_depth_first_order"
+	depthFirstOrder "github.com/lee-hen/Algorithms/4_graphs/26_depth_first_order"
 
 	"fmt"
 )

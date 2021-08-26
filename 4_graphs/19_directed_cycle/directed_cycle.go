@@ -59,8 +59,8 @@ func (cycle *DirectedCycle) dfs(g *graph.Digraph, v int) {
 			cycle.check()
 		}
 	}
+	cycle.onStack[v] = false
 }
-
 
 // HasCycle
 // Returns true if the graph g has a cycle.

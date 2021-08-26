@@ -19,13 +19,15 @@ func main() {
 	g := gen.Dag(v, e)
 
 	rand.Seed(time.Now().UnixNano())
+
+	V := g.V
 	for i := 0; i < f; i++ {
-		v := rand.Intn(g.V)
-		w := rand.Intn(g.V)
+		v := rand.Intn(V)
+		w := rand.Intn(V)
 		g.AddEdge(v, w)
 	}
-	fmt.Println(g)
 
+	fmt.Println(g)
 
 	finder := cycle.New(g)
 	if finder.HasCycle() {

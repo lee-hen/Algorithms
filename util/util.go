@@ -1,6 +1,8 @@
 package util
 
 import (
+	directedEdge "github.com/lee-hen/Algorithms/4_graphs/22_directed_edge"
+
 	"hash/crc32"
 	"log"
 	"math/rand"
@@ -177,4 +179,30 @@ func Bernoulli(p float64) bool {
 	}
 	rand.Seed(time.Now().UnixNano())
 	return rand.Float64() < p
+}
+
+type DirectedEdgeStack []*directedEdge.Edge
+
+func (stack *DirectedEdgeStack) Push(arr *directedEdge.Edge) {
+	*stack = append(*stack, arr)
+}
+
+func (stack *DirectedEdgeStack) Pop() *directedEdge.Edge {
+	s := *stack
+	last := s[len(s)-1]
+	*stack = s[:len(s)-1]
+	return last
+}
+
+func (stack *DirectedEdgeStack) Peek() *directedEdge.Edge {
+	s := *stack
+	return s[len(s)-1]
+}
+
+func (stack *DirectedEdgeStack) Size() int {
+	return len(*stack)
+}
+
+func (stack *DirectedEdgeStack) IsEmpty() bool {
+	return len(*stack) == 0
 }

@@ -1,6 +1,9 @@
 package depth_first_order
 
-import graph "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
+import (
+	D "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
+	E "github.com/lee-hen/Algorithms/4_graphs/24_edge_eeighted_digraph"
+)
 
 type DepthFirstOrder struct {
 	marked map[int]bool  // marked[v] = has v been marked in dfs?
@@ -14,7 +17,7 @@ type DepthFirstOrder struct {
 
 // NewDigraph
 // Determines a depth-first order for the digraph g.
-func NewDigraph(g *graph.Digraph) *DepthFirstOrder {
+func NewDigraph(g *D.Digraph) *DepthFirstOrder {
 	search := &DepthFirstOrder{}
 	search.Pre = make(map[int]int)
 	search.Post = make(map[int]int)
@@ -31,7 +34,7 @@ func NewDigraph(g *graph.Digraph) *DepthFirstOrder {
 	return search
 }
 
-func (search *DepthFirstOrder) dfs(g *graph.Digraph, v int) {
+func (search *DepthFirstOrder) dfs(g *D.Digraph, v int) {
 	search.marked[v] = true
 	search.Pre[v] = search.preCounter
 	search.preCounter++
@@ -50,42 +53,40 @@ func (search *DepthFirstOrder) dfs(g *graph.Digraph, v int) {
 
 }
 
-//
-//func NewEdgeWeightedDigraph(g *graph.EdgeWeightedDigraph) *DepthFirstOrder {
-//	search := &DepthFirstOrder{}
-//	search.Pre = make(map[int]int)
-//	search.Post = make(map[int]int)
-//	search.PostOrder = make([]int, 0)
-//	search.PreOrder = make([]int, 0)
-//	search.marked = make(map[int]bool)
-//
-//	for v := 0; v < g.V; v++ {
-//		if !search.marked[v] {
-//			search.dfs2(g, v)
-//		}
-//	}
-//
-//	return search
-//}
-//
-//func (search *DepthFirstOrder) dfs2(g *graph.EdgeWeightedDigraph, v int) {
-//	search.marked[v] = true
-//	search.Pre[v] = search.preCounter
-//	search.preCounter++
-//	search.PreOrder = append(search.PreOrder, v)
-//
-//	for i := len(g.Adj(v))-1; i >= 0; i-- {
-//		w := g.Adj(v)[i]
-//		if !search.marked[w] {
-//			search.dfs2(g, w)
-//		}
-//	}
-//
-//	search.Post[v] = search.postCounter
-//	search.postCounter++
-//	search.PostOrder = append(search.PostOrder, v)
-//
-//}
+func NewEdgeWeightedDigraph(g *E.EdgeWeightedDigraph) *DepthFirstOrder {
+	search := &DepthFirstOrder{}
+	search.Pre = make(map[int]int)
+	search.Post = make(map[int]int)
+	search.PostOrder = make([]int, 0)
+	search.PreOrder = make([]int, 0)
+	search.marked = make(map[int]bool)
+
+	for v := 0; v < g.V; v++ {
+		if !search.marked[v] {
+			search.dfs2(g, v)
+		}
+	}
+
+	return search
+}
+
+func (search *DepthFirstOrder) dfs2(g *E.EdgeWeightedDigraph, v int) {
+	search.marked[v] = true
+	search.Pre[v] = search.preCounter
+	search.preCounter++
+	search.PreOrder = append(search.PreOrder, v)
+
+	for i := len(g.Adj(v))-1; i >= 0; i-- {
+		w := g.Adj(v)[i].To()
+		if !search.marked[w] {
+			search.dfs2(g, w)
+		}
+	}
+
+	search.Post[v] = search.postCounter
+	search.postCounter++
+	search.PostOrder = append(search.PostOrder, v)
+}
 
 func (search *DepthFirstOrder) ReversePost() []int {
 	reverse := make([]int, 0)

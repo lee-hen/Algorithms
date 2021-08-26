@@ -3,7 +3,7 @@ package directed_eulerian_cycle
 import (
 	G "github.com/lee-hen/Algorithms/4_graphs/01_graph"
 	path "github.com/lee-hen/Algorithms/4_graphs/06_breadth_first_paths"
-	graph "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
+	D "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
 	"github.com/lee-hen/Algorithms/util"
 )
 
@@ -18,7 +18,7 @@ type DirectedEulerianCycle struct {
 	cycle util.Stack
 }
 
-func New(g *graph.Digraph) *DirectedEulerianCycle {
+func New(g *D.Digraph) *DirectedEulerianCycle {
 	euler := &DirectedEulerianCycle{}
 	if g.E == 0 {
 		return euler
@@ -76,7 +76,7 @@ func (euler *DirectedEulerianCycle) HasEulerianCycle() bool {
 }
 
 // returns any non-isolated vertex; -1 if no such vertex
-func (euler *DirectedEulerianCycle) nonIsolatedVertex(g *graph.Digraph) int {
+func (euler *DirectedEulerianCycle) nonIsolatedVertex(g *D.Digraph) int {
 	for v := 0; v < g.V; v++ {
 		if g.OutDegree(v) > 0 {
 			return v
@@ -96,7 +96,7 @@ func (euler *DirectedEulerianCycle) nonIsolatedVertex(g *graph.Digraph) int {
 //    - at least one edge
 //    - degree(v) is even for every vertex v
 //    - the graph is connected (ignoring isolated vertices)
-func (euler *DirectedEulerianCycle) satisfiesNecessaryAndSufficientConditions(g *graph.Digraph) bool {
+func (euler *DirectedEulerianCycle) satisfiesNecessaryAndSufficientConditions(g *D.Digraph) bool {
 	// Condition 0: at least 1 edge
 	if g.E == 0 {
 		return false
@@ -129,7 +129,7 @@ func (euler *DirectedEulerianCycle) satisfiesNecessaryAndSufficientConditions(g 
 }
 
 // check that solution is correct
-func (euler *DirectedEulerianCycle) certifySolution(g *graph.Digraph) bool {
+func (euler *DirectedEulerianCycle) certifySolution(g *D.Digraph) bool {
 
 	// internal consistency check
 	if euler.HasEulerianCycle() == (euler.Cycle() == nil) {

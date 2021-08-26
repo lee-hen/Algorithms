@@ -3,7 +3,7 @@ package topological
 import (
 	D "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
 	directedCycle "github.com/lee-hen/Algorithms/4_graphs/19_directed_cycle"
-	E "github.com/lee-hen/Algorithms/4_graphs/24_edge_eeighted_digraph"
+	E "github.com/lee-hen/Algorithms/4_graphs/24_edge_weighted_digraph"
 	edgeWeightedDirectedCycle "github.com/lee-hen/Algorithms/4_graphs/25_edge_weighted_directed_cycle"
 	depthFirstOrder "github.com/lee-hen/Algorithms/4_graphs/26_depth_first_order"
 )

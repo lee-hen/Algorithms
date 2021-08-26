@@ -2,7 +2,7 @@ package topological_x
 
 import (
 	D "github.com/lee-hen/Algorithms/4_graphs/13_digraph"
-	E "github.com/lee-hen/Algorithms/4_graphs/24_edge_eeighted_digraph"
+	E "github.com/lee-hen/Algorithms/4_graphs/24_edge_weighted_digraph"
 	"log"
 )
 

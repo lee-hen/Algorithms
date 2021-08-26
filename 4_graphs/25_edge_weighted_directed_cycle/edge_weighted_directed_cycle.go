@@ -2,7 +2,7 @@ package edge_weighted_directed_cycle
 
 import (
 	directedEdge "github.com/lee-hen/Algorithms/4_graphs/22_directed_edge"
-	graph "github.com/lee-hen/Algorithms/4_graphs/24_edge_eeighted_digraph"
+	graph "github.com/lee-hen/Algorithms/4_graphs/24_edge_weighted_digraph"
 	"github.com/lee-hen/Algorithms/util"
 
 	"log"

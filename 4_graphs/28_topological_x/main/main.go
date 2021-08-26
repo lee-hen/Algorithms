@@ -3,7 +3,7 @@ package main
 import (
 	gen "github.com/lee-hen/Algorithms/4_graphs/14_digraph_generator"
 	directedEdge "github.com/lee-hen/Algorithms/4_graphs/22_directed_edge"
-	graph "github.com/lee-hen/Algorithms/4_graphs/24_edge_eeighted_digraph"
+	graph "github.com/lee-hen/Algorithms/4_graphs/24_edge_weighted_digraph"
 	topologicalX "github.com/lee-hen/Algorithms/4_graphs/28_topological_x"
 
 	"fmt"

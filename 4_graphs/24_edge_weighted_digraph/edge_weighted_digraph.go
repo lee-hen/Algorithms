@@ -1,4 +1,4 @@
-package edge_eeighted_digraph
+package edge_weighted_digraph
 
 import (
 	directedEdge "github.com/lee-hen/Algorithms/4_graphs/22_directed_edge"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	graph "github.com/lee-hen/Algorithms/4_graphs/24_edge_eeighted_digraph"
+	graph "github.com/lee-hen/Algorithms/4_graphs/24_edge_weighted_digraph"
 
 	"fmt"
 )

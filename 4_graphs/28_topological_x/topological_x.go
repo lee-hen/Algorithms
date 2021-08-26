@@ -108,6 +108,8 @@ func NewEdgeWeightedDigraph(g *E.EdgeWeightedDigraph) *TopologicalX {
 		topological.order = nil
 	}
 
+	topological.check2(g)
+
 	return topological
 }
 
@@ -156,6 +158,48 @@ func (topological *TopologicalX) check(g *D.Digraph) bool {
 		// check that ranks provide a valid topological order
 		for v := 0; v < g.V; v++ {
 			for _, w := range g.Adj(v) {
+				if topological.Rank(v) > topological.Rank(w) {
+					log.Fatalf("%d-%d: rank(%d) = %d, rank(%d) = %d\n",
+						v, w, v, topological.Rank(v), w, topological.Rank(w))
+
+					return false
+				}
+			}
+		}
+		// check that order() is consistent with rank()
+		r := 0
+		for _, v := range topological.Order() {
+			if topological.Rank(v) != r {
+				log.Fatalln("order() and rank() inconsistent")
+				return false
+			}
+			r++
+		}
+	}
+	return true
+}
+
+
+// certify that digraph has a directed cycle if it reports one
+func (topological *TopologicalX) check2(g *E.EdgeWeightedDigraph) bool {
+	// digraph is acyclic
+	if topological.HasOrder() {
+		found := make(map[int]bool)
+		for i := 0; i < g.V; i++ {
+			found[topological.Rank(i)] = true
+		}
+
+		for i := 0; i < g.V; i++ {
+			if !found[i] {
+				log.Fatalf("No vertex with rank  %d\n", i)
+				return false
+			}
+		}
+
+		// check that ranks provide a valid topological order
+		for v := 0; v < g.V; v++ {
+			for _, e := range g.Adj(v) {
+				w := e.To()
 				if topological.Rank(v) > topological.Rank(w) {
 					log.Fatalf("%d-%d: rank(%d) = %d, rank(%d) = %d\n",
 						v, w, v, topological.Rank(v), w, topological.Rank(w))

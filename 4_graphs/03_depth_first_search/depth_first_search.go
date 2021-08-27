@@ -27,8 +27,7 @@ func (search *DepthFirstSearch) dfs(g *graph.Graph, v int) {
 	search.count++
 	search.marked[v] = true
 
-	for i := len(g.Adj(v))-1; i >= 0; i-- {
-		w := g.Adj(v)[i]
+	for _, w := range g.Adj(v) {
 		if !search.marked[w] {
 			search.dfs(g, w)
 		}

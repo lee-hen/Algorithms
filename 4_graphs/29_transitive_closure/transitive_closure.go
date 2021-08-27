@@ -5,6 +5,9 @@ import (
 	dfs "github.com/lee-hen/Algorithms/4_graphs/15_directed_dfs"
 )
 
+// Definition. The transitive closure of a digraph G is another digraph with the same set of vertices,
+// but with an edge from v to w in the transitive closure if and only if w is reachable from v in G.
+
 var tc []*dfs.DirectedDFS
 
 // TransitiveClosure

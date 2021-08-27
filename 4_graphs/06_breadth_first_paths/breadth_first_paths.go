@@ -37,9 +37,6 @@ func BreadthFirstPaths(g *graph.Graph, s int) *Paths {
 	search.marked = make(map[int]bool)
 	search.edgeTo = make(map[int]int)
 	search.distTo = make(map[int]int)
-	for v := 0; v < g.V; v++ {
-		search.distTo[v] = INFINITY
-	}
 
 	search.bfs(g, s)
 	if !search.check(g, s) {
@@ -51,6 +48,10 @@ func BreadthFirstPaths(g *graph.Graph, s int) *Paths {
 // breadth-first search from a single source
 func (search *Paths) bfs(g *graph.Graph, s int) {
 	queue := make([]int, 0)
+	for v := 0; v < g.V; v++ {
+		search.distTo[v] = INFINITY
+	}
+
 	search.distTo[s] = 0
 	search.marked[s] = true
 	queue = append(queue, s)

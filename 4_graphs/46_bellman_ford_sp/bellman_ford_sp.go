@@ -123,7 +123,6 @@ func (sp *BellmanFordSP) findNegativeCycle()  {
 	spt := graph.NewEdgeWeightedDigraph(V)
 
 	for v := 0; v < V; v++ {
-		fmt.Println(v, V)
 		if sp.edgeTo[v] != nil {
 			spt.AddEdge(sp.edgeTo[v])
 		}

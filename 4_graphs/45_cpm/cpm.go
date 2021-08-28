@@ -114,8 +114,8 @@ func main() {
 	}
 
 	// source and sink
-	source := 2*n
-	sink   := 2*n + 1
+	source := 2*n // the job started at
+	sink   := 2*n + 1 // the job ended at
 
 	// build network
 	g := graph.NewEdgeWeightedDigraph(2*n + 2)
@@ -126,9 +126,13 @@ func main() {
 			log.Fatalln(err)
 		}
 
-		g.AddEdge(directedEdge.NewEdge(source, i, 0.0))
-		g.AddEdge(directedEdge.NewEdge(i+n, sink, 0.0))
+		// For each job, add an edge from its start vertex to its end vertex with weight equal to its duration.
 		g.AddEdge(directedEdge.NewEdge(i, i+n,    duration))
+
+		//Add zero-weight edges from the source to each job’s start vertex and from each job’s end vertex to the sink.
+		g.AddEdge(directedEdge.NewEdge(source, i, 0.0)) // used to calculate the vertex that isn't connected by others
+		g.AddEdge(directedEdge.NewEdge(i+n, sink, 0.0)) // used to calculate total finish time
+
 
 		// precedence constraints
 		var m int
@@ -137,6 +141,7 @@ func main() {
 			log.Fatalln(err)
 		}
 
+		// For each precedence constraint v->w, add a zero-weight edge from the end vertex corresponding to v to the beginning vertex corresponding to w.
 		for j := 0; j < m; j++ {
 			var precedent int
 			_, err = fmt.Scan(&precedent)

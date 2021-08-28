@@ -153,7 +153,7 @@ func (graph *EdgeWeightedGraph) Edges() []*edge.Edge {
 	for v := 0; v < graph.V; v++ {
 		selfLoops := 0
 		for _, e := range graph.Adj(v) {
-			if e.Other(v) > graph.V {
+			if e.Other(v) > v {
 				list = append(list, e)
 			} else if e.Other(v) == v {
 				if selfLoops % 2 == 0 {

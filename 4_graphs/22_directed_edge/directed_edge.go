@@ -6,7 +6,7 @@ import (
 )
 
 type Edge struct {
-	v, w int
+	v, w   int
 	weight float64
 }
 
@@ -26,10 +26,6 @@ func (e *Edge) Weight() float64 {
 	return e.weight
 }
 
-func (e *Edge) Either() int {
-	return e.v
-}
-
 func (e *Edge) From() int {
 	return e.v
 }
@@ -39,9 +35,17 @@ func (e *Edge) To() int {
 }
 
 func (e *Edge) CompareTo(other *Edge) int {
-	return int(e.weight - other.weight)
+	if e.weight == other.weight {
+		return 0
+	}
+
+	if e.weight-other.weight > 0.0 {
+		return 1
+	}
+
+	return -1
 }
 
-func (e *Edge) String() string{
+func (e *Edge) String() string {
 	return fmt.Sprintf("%d->%d %.5f", e.v, e.w, e.weight)
 }

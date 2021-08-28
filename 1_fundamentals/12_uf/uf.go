@@ -1,7 +1,6 @@
-package main
+package UF
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -65,33 +64,5 @@ func (uf *UF) validate (p int) {
 	n := len(uf.parent)
 	if p < 0 || p >= n {
 		log.Fatalf("index %d is not between 0 and %d", p, n-1 )
-	}
-}
-
-func main() {
-	var n int
-	_, err := fmt.Scan(&n)
-	if err != nil {
-		fmt.Println(err)
-	}
-	uf := NewUF(n)
-
-	for {
-		var p, q int
-		_, err = fmt.Scan(&p)
-		if err != nil {
-			fmt.Println(err)
-		}
-		_, err = fmt.Scan(&q)
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		if uf.Find(p) == uf.Find(q) {
-			continue
-		}
-		uf.Union(p, q)
-		fmt.Println(p, q, uf.Count())
-		fmt.Println(uf.parent)
 	}
 }

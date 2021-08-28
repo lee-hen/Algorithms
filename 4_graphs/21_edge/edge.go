@@ -43,7 +43,15 @@ func (e *Edge) Other(vertex int) int {
 }
 
 func (e *Edge) CompareTo(other *Edge) int {
-	return int(e.weight - other.weight)
+	if e.weight == other.weight {
+		return 0
+	}
+
+	if e.weight - other.weight > 0.0 {
+		return 1
+	}
+
+	return -1
 }
 
 func (e *Edge) String() string{

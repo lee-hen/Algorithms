@@ -1,6 +1,7 @@
 package util
 
 import (
+	edge "github.com/lee-hen/Algorithms/4_graphs/21_edge"
 	directedEdge "github.com/lee-hen/Algorithms/4_graphs/22_directed_edge"
 
 	"hash/crc32"
@@ -205,4 +206,30 @@ func (stack *DirectedEdgeStack) Size() int {
 
 func (stack *DirectedEdgeStack) IsEmpty() bool {
 	return len(*stack) == 0
+}
+
+type EdgeHeap []*edge.Edge
+
+func (h *EdgeHeap) Len() int           { return len(*h) }
+func (h *EdgeHeap) Less(i, j int) bool { return (*h)[i].CompareTo((*h)[j]) < 0 }
+func (h *EdgeHeap) Swap(i, j int)      { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
+
+func (h *EdgeHeap) Push(x interface{}) {
+	*h = append(*h, x.(*edge.Edge))
+}
+
+func (h *EdgeHeap) Pop() interface{} {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[:n-1]
+	return x
+}
+
+func (h *EdgeHeap) IsEmpty() bool {
+	return len(*h) == 0
+}
+
+func (h *EdgeHeap) Size() int {
+	return len(*h)
 }

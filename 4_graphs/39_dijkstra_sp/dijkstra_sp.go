@@ -10,7 +10,6 @@ import (
 	"math"
 )
 
-
 // Definition. A shortest path from vertex s to vertex t in an edge-weighted digraph is a directed path from s to t with the property that no other such path has a lower weight.
 // Definition. Given an edge-weighted digraph and a designated vertex s, a shortest-paths tree for a source s is a subgraph containing s and all the vertices reachable from s that forms a directed tree rooted at s such that every tree path is a shortest path in the digraph.
 
@@ -27,7 +26,6 @@ import (
 // ...
 // distTo[v2]   <= distTo[v1]  + e2.weight()
 // distTo[v1]   <= distTo[s]   + e1.weight() Collapsing these inequalities and eliminating distTo[s] = 0.0, we have distTo[w] <= e1.weight() + ... + ek.weight() = OPTsw. Now, distTo[w] is the length of some path from s to w, so it cannot be smaller than the length of a shortest path. Thus, we have shown that OPTsw <= distTo[w] <= OPTsw and equality must hold.
-
 
 // Proposition Q. (Generic shortest-paths algorithm) Initialize distTo[s] to 0 and all other distTo[] values to infinity,
 // and proceed as follows: Relax any edge in G, continuing until no edge is eligible. For all vertices w reachable from s,
@@ -51,16 +49,15 @@ import (
 // solve the single-source shortest paths problem in an edge-weighted digraph with E edges and V vertices.
 // Proof: Same as for Prim’s algorithm (see PROPOSITION N).
 
-
 type DijkstraSP struct {
-	distTo []float64  // distTo[v] = distance  of shortest s->v path
+	distTo []float64                  // distTo[v] = distance  of shortest s->v path
 	edgeTo map[int]*directedEdge.Edge // edgeTo[v] = last edge on shortest s->v path
 
 	pq *minPQ.IndexMinPQ
 }
 
 // New
-// Computes a shortest-paths tree from the source vertex {@code s} to every other
+// Computes a shortest-paths tree from the source vertex s to every other
 // vertex in the edge-weighted digraph G.
 func New(g *graph.EdgeWeightedDigraph, s int) *DijkstraSP {
 	for _, e := range g.Edges() {
@@ -99,7 +96,7 @@ func New(g *graph.EdgeWeightedDigraph, s int) *DijkstraSP {
 // relax edge e and update pq if changed
 func (sp *DijkstraSP) relax(e *directedEdge.Edge) {
 	v, w := e.From(), e.To()
-	if e.Weight() + sp.distTo[v] < sp.distTo[w] {
+	if e.Weight()+sp.distTo[v] < sp.distTo[w] {
 		sp.distTo[w] = e.Weight() + sp.distTo[v]
 		sp.edgeTo[w] = e
 
@@ -112,13 +109,13 @@ func (sp *DijkstraSP) relax(e *directedEdge.Edge) {
 }
 
 // DistTo
-// Returns the weight of a shortest path from the source vertex {@code s} to vertex v.
+// Returns the weight of a shortest path from the source vertex s to vertex v.
 func (sp *DijkstraSP) DistTo(v int) float64 {
 	return sp.distTo[v]
 }
 
 // HasPathTo
-// Returns true if there is a path from the source vertex {@code s} to vertex v.
+// Returns true if there is a path from the source vertex s to vertex v.
 func (sp *DijkstraSP) HasPathTo(v int) bool {
 	return sp.distTo[v] < math.MaxFloat64
 }
@@ -131,7 +128,7 @@ func (sp *DijkstraSP) PathTo(v int) util.DirectedEdgeStack {
 	}
 
 	path := make(util.DirectedEdgeStack, 0)
-	for e := sp.edgeTo[v]; e != nil; e = sp.edgeTo[e.From()]  {
+	for e := sp.edgeTo[v]; e != nil; e = sp.edgeTo[e.From()] {
 		path.Push(e)
 	}
 
@@ -171,7 +168,7 @@ func (sp *DijkstraSP) check(g *graph.EdgeWeightedDigraph, s int) bool {
 	for v := 0; v < g.V; v++ {
 		for _, e := range g.Adj(v) {
 			w := e.To()
-			if sp.distTo[v] + e.Weight() < sp.distTo[w] {
+			if sp.distTo[v]+e.Weight() < sp.distTo[w] {
 				log.Fatalln("edge", e, "not relaxed")
 				return false
 			}
@@ -189,7 +186,7 @@ func (sp *DijkstraSP) check(g *graph.EdgeWeightedDigraph, s int) bool {
 			return false
 		}
 
-		if sp.distTo[v] + e.Weight() != sp.distTo[w] {
+		if sp.distTo[v]+e.Weight() != sp.distTo[w] {
 			log.Fatalln("edge", e, "on shortest path not tight")
 			return false
 		}

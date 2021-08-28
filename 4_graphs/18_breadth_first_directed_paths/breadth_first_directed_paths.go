@@ -41,7 +41,7 @@ func (search *Paths) bfs(g *graph.Digraph, s int) {
 	for len(queue) > 0 {
 		var v int
 		v, queue = queue[0], queue[1:]
-		for i := len(g.Adj(v))-1; i >= 0; i-- {
+		for i := len(g.Adj(v)) - 1; i >= 0; i-- {
 			w := g.Adj(v)[i]
 			if !search.marked[w] {
 				search.edgeTo[w] = v
@@ -54,8 +54,8 @@ func (search *Paths) bfs(g *graph.Digraph, s int) {
 }
 
 // BreadthFirstDirectedPathsMulti
-// Computes the shortest path between any one of the source vertices in {@code sources}
-// and every other vertex in graph {@code G}.
+// Computes the shortest path between any one of the source vertices in sources
+// and every other vertex in graph g.
 func BreadthFirstDirectedPathsMulti(g *graph.Digraph, sources []int) *Paths {
 	search := &Paths{}
 	search.marked = make(map[int]bool)
@@ -69,7 +69,7 @@ func BreadthFirstDirectedPathsMulti(g *graph.Digraph, sources []int) *Paths {
 }
 
 // breadth-first search from multiple sources
-func  (search *Paths) bfsMulti(g *graph.Digraph, sources []int) {
+func (search *Paths) bfsMulti(g *graph.Digraph, sources []int) {
 	queue := make([]int, 0)
 
 	for _, s := range sources {
@@ -81,7 +81,7 @@ func  (search *Paths) bfsMulti(g *graph.Digraph, sources []int) {
 	for len(queue) > 0 {
 		var v int
 		v, queue = queue[0], queue[1:]
-		for i := len(g.Adj(v))-1; i >= 0; i-- {
+		for i := len(g.Adj(v)) - 1; i >= 0; i-- {
 			w := g.Adj(v)[i]
 			if !search.marked[w] {
 				search.edgeTo[w] = v
@@ -106,7 +106,6 @@ func (search *Paths) DistTo(v int) int {
 	return search.distTo[v]
 }
 
-
 // PathTo
 // Returns a shortest path between the source vertex s (or sources)
 // and v, or nil if no such path.
@@ -117,7 +116,7 @@ func (search *Paths) PathTo(v int) []int {
 
 	path := make(util.Stack, 0)
 	var x int
-	for x = v; search.distTo[x] != 0; x = search.edgeTo[x]  {
+	for x = v; search.distTo[x] != 0; x = search.edgeTo[x] {
 		path.Push(x)
 	}
 

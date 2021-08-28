@@ -1,9 +1,10 @@
 package trie_set
 
 import (
-	"github.com/lee-hen/Algorithms/util"
 	"log"
 	"strings"
+
+	"github.com/lee-hen/Algorithms/util"
 )
 
 // An set for extended ASCII strings, implemented  using a 256-way trie.
@@ -12,13 +13,13 @@ const R = 256 // extended ASCII
 
 type TrieSET struct {
 	root *Node // root of trie
-	n int // number of keys in trie
+	n    int   // number of keys in trie
 }
 
 // Node
 // R-way trie node
 type Node struct {
-	next map[byte]*Node
+	next     map[byte]*Node
 	isString bool
 }
 
@@ -188,7 +189,7 @@ func collectMatches(x *Node, prefix *strings.Builder, pattern string, results *[
 }
 
 // LongestPrefixOf
-// Returns the string in the set that is the longest prefix of {@code query},
+// Returns the string in the set that is the longest prefix of query,
 // or "", if no such string.
 func (t *TrieSET) LongestPrefixOf(query string) string {
 	if query == "" {

@@ -5,8 +5,8 @@ import (
 )
 
 type DirectedDFS struct {
-	marked map[int]bool  // marked[v] = true iff v is reachable from source(s)
-	count int   // number of vertices reachable from source(s)
+	marked map[int]bool // marked[v] = true iff v is reachable from source(s)
+	count  int          // number of vertices reachable from source(s)
 }
 
 // New
@@ -20,8 +20,8 @@ func New(g *graph.Digraph, s int) *DirectedDFS {
 }
 
 // Multi
-// Computes the vertices in digraph {@code G} that are
-// connected to any of the source vertices {@code sources}.
+// Computes the vertices in digraph g that are
+// connected to any of the source vertices sources.
 func Multi(g *graph.Digraph, sources []int) *DirectedDFS {
 	search := &DirectedDFS{}
 	search.marked = make(map[int]bool)
@@ -37,7 +37,7 @@ func (search *DirectedDFS) dfs(g *graph.Digraph, v int) {
 	search.count++
 	search.marked[v] = true
 
-	for i := len(g.Adj(v))-1; i >= 0; i-- {
+	for i := len(g.Adj(v)) - 1; i >= 0; i-- {
 		w := g.Adj(v)[i]
 		if !search.marked[w] {
 			search.dfs(g, w)

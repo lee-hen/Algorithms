@@ -45,7 +45,7 @@ func (h *minHeap) relax(g *graph.EdgeWeightedDigraph, v int) {
 
 	for _, e := range g.Adj(v) {
 		_, w := e.From(), e.To()
-		if e.Weight() + sp.distTo[v] < sp.distTo[w] {
+		if e.Weight()+sp.distTo[v] < sp.distTo[w] {
 			sp.distTo[w] = e.Weight() + sp.distTo[v]
 			sp.edgeTo[w] = e
 
@@ -55,8 +55,8 @@ func (h *minHeap) relax(g *graph.EdgeWeightedDigraph, v int) {
 }
 
 type LazyDijkstraSP struct {
-	marked map[int]bool // has vertex v been relaxed?
-	distTo []float64  // distTo[v] = length of shortest s->v path
+	marked map[int]bool               // has vertex v been relaxed?
+	distTo []float64                  // distTo[v] = length of shortest s->v path
 	edgeTo map[int]*directedEdge.Edge // edgeTo[v] = last edge on shortest s->v path
 
 	pq []*directedEdge.Edge
@@ -112,7 +112,7 @@ func (sp *LazyDijkstraSP) less(e, f *directedEdge.Edge) int {
 		return 0
 	}
 
-	if dist1 - dist2 > 0.0 {
+	if dist1-dist2 > 0.0 {
 		return 1
 	}
 
@@ -120,13 +120,13 @@ func (sp *LazyDijkstraSP) less(e, f *directedEdge.Edge) int {
 }
 
 // DistTo
-// Returns the weight of a shortest path from the source vertex {@code s} to vertex v.
+// Returns the weight of a shortest path from the source vertex s to vertex v.
 func (sp *LazyDijkstraSP) DistTo(v int) float64 {
 	return sp.distTo[v]
 }
 
 // HasPathTo
-// Returns true if there is a path from the source vertex {@code s} to vertex v.
+// Returns true if there is a path from the source vertex s to vertex v.
 func (sp *LazyDijkstraSP) HasPathTo(v int) bool {
 	return sp.distTo[v] < math.MaxFloat64
 }
@@ -139,7 +139,7 @@ func (sp *LazyDijkstraSP) PathTo(v int) util.DirectedEdgeStack {
 	}
 
 	path := make(util.DirectedEdgeStack, 0)
-	for e := sp.edgeTo[v]; e != nil; e = sp.edgeTo[e.From()]  {
+	for e := sp.edgeTo[v]; e != nil; e = sp.edgeTo[e.From()] {
 		path.Push(e)
 	}
 
@@ -179,7 +179,7 @@ func (sp *LazyDijkstraSP) check(g *graph.EdgeWeightedDigraph, s int) bool {
 	for v := 0; v < g.V; v++ {
 		for _, e := range g.Adj(v) {
 			w := e.To()
-			if sp.distTo[v] + e.Weight() < sp.distTo[w] {
+			if sp.distTo[v]+e.Weight() < sp.distTo[w] {
 				log.Fatalln("edge", e, "not relaxed")
 				return false
 			}
@@ -197,7 +197,7 @@ func (sp *LazyDijkstraSP) check(g *graph.EdgeWeightedDigraph, s int) bool {
 			return false
 		}
 
-		if sp.distTo[v] + e.Weight() != sp.distTo[w] {
+		if sp.distTo[v]+e.Weight() != sp.distTo[w] {
 			log.Fatalln("edge", e, "on shortest path not tight")
 			return false
 		}

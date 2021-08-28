@@ -13,7 +13,7 @@ type Cycle struct {
 }
 
 // New
-// Determines whether the undirected graph {@code G} has a cycle and,
+// Determines whether the undirected graph g has a cycle and,
 // if so, finds such a cycle.
 func New(g *graph.Graph) *Cycle {
 	cycle := &Cycle{}
@@ -106,7 +106,7 @@ func (cycle *Cycle) dfs(g *graph.Graph, u, v int) {
 		if !cycle.marked[w] {
 			cycle.edgeTo[w] = v
 			cycle.dfs(g, v, w)
-		} else if w != u {  // check for cycle (but disregard reverse of edge leading to v)
+		} else if w != u { // check for cycle (but disregard reverse of edge leading to v)
 			cycle.cycle = make(util.Stack, 0)
 
 			for x := v; x != w; x = cycle.edgeTo[x] {

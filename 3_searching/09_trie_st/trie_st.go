@@ -1,9 +1,10 @@
 package trie_st
 
 import (
-	"github.com/lee-hen/Algorithms/util"
 	"log"
 	"strings"
+
+	"github.com/lee-hen/Algorithms/util"
 )
 
 // A string symbol table for extended ASCII strings, implemented
@@ -21,7 +22,6 @@ import (
 // From probabilistic analysis, the sum for t = 0, 1, 2, ... of the probabilities that an integer random variable is >t is the average value of that random variable, so the average search cost is 1 − (1 − R−1)N + 1 − (1 − R−2)N + ... + 1 − (1 − R−t)N + ... Using the elementary approximation (1−1/x)x ~ e−1,
 // we find the search cost to be approximately (1 − e−N/R1) + (1 − e−N/R2) + ... + (1 − e−N/Rt) + ... The summand is extremely close to 1 for approximately lnR N terms with Rt substantially smaller than N; it is extremely close to 0 for all the terms with Rt substantially greater than N; and it is somewhere between 0 and 1 for the few terms with Rt ≈ N. So the grand total is about logR N.
 
-
 // Proposition I. The number of links in a trie is between RN and RNw, where w is the average key length.
 // Proof: Every key in the trie has a node containing its associated value that also has R links, so the number of links is at least RN.
 // If the first characters of all the keys are different, then there is a node with R links for every key character, so the number of links is R times the total number of key characters, or RNw.
@@ -30,28 +30,28 @@ const R = 256 // extended ASCII
 
 type TrieST struct {
 	root *Node // root of trie
-	n int // number of keys in trie
+	n    int   // number of keys in trie
 }
 
-type data interface {}
+type data interface{}
 
 // Node
 // R-way trie node
 type Node struct {
-	next map[byte]*Node
+	next  map[byte]*Node
 	value data
 }
 
 func newNode() *Node {
 	return &Node{
-		next: make(map[byte]*Node),
+		next:  make(map[byte]*Node),
 		value: 0,
 	}
 }
 
 // Get
 // Returns the value associated with the given key.
-func (t *TrieST) Get(key string) (int, bool){
+func (t *TrieST) Get(key string) (int, bool) {
 	if key == "" {
 		log.Fatalln("argument to get() is null")
 	}
@@ -220,7 +220,7 @@ func collectMatches(x *Node, prefix *strings.Builder, pattern string, results *[
 }
 
 // LongestPrefixOf
-// Returns the string in the symbol table that is the longest prefix of {@code query},
+// Returns the string in the symbol table that is the longest prefix of query,
 // or "", if no such string.
 func (t *TrieST) LongestPrefixOf(query string) string {
 	if query == "" {

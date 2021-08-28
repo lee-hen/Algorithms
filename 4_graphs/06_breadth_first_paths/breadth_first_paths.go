@@ -8,18 +8,15 @@ import (
 	"math"
 )
 
-
 // Proposition B. For any vertex v reachable from s, BFS computes a shortest path from s to v (no path from s to v has fewer edges).
 // Proof: It is easy to prove by induction that the queue always consists of zero or more vertices of distance k from the source,
 // followed by zero or more vertices of distance k+1 from the source, for some integer k, starting with k equal to 0. This property implies,
 // in particular, that vertices enter and leave the queue in order of their distance from s. When a vertex v enters the queue, no shorter path to v will be found
 // before it comes off the queue, and no path to v that is discovered after it comes off the queue can be shorter than v’s tree path length.
 
-
 // Proposition B (continued). BFS takes time proportional to V+E in the worst case.
 // Proof: As for PROPOSITION A (page 531), BFS marks all the vertices connected to s in time proportional to the sum of their degrees.
 // If the graph is connected, this sum equals the sum of the degrees of all the vertices, or 2E. Initialzing the marked[] and edgeTo[] arrays takes time proportional to V.
-
 
 const INFINITY = math.MaxInt32
 
@@ -59,7 +56,7 @@ func (search *Paths) bfs(g *graph.Graph, s int) {
 	for len(queue) > 0 {
 		var v int
 		v, queue = queue[0], queue[1:]
-		for i := len(g.Adj(v))-1; i >= 0; i-- {
+		for i := len(g.Adj(v)) - 1; i >= 0; i-- {
 			w := g.Adj(v)[i]
 			if !search.marked[w] {
 				search.edgeTo[w] = v
@@ -72,8 +69,8 @@ func (search *Paths) bfs(g *graph.Graph, s int) {
 }
 
 // BreadthFirstPathsMulti
-// Computes the shortest path between any one of the source vertices in {@code sources}
-// and every other vertex in graph {@code G}.
+// Computes the shortest path between any one of the source vertices in sources
+// and every other vertex in graph g.
 func BreadthFirstPathsMulti(g *graph.Graph, sources []int) *Paths {
 	search := &Paths{}
 	search.marked = make(map[int]bool)
@@ -87,7 +84,7 @@ func BreadthFirstPathsMulti(g *graph.Graph, sources []int) *Paths {
 }
 
 // breadth-first search from multiple sources
-func  (search *Paths) bfsMulti(g *graph.Graph, sources []int) {
+func (search *Paths) bfsMulti(g *graph.Graph, sources []int) {
 	queue := make([]int, 0)
 
 	for _, s := range sources {
@@ -99,7 +96,7 @@ func  (search *Paths) bfsMulti(g *graph.Graph, sources []int) {
 	for len(queue) > 0 {
 		var v int
 		v, queue = queue[0], queue[1:]
-		for i := len(g.Adj(v))-1; i >= 0; i-- {
+		for i := len(g.Adj(v)) - 1; i >= 0; i-- {
 			w := g.Adj(v)[i]
 			if !search.marked[w] {
 				search.edgeTo[w] = v
@@ -124,7 +121,6 @@ func (search *Paths) DistTo(v int) int {
 	return search.distTo[v]
 }
 
-
 // PathTo
 // Returns a shortest path between the source vertex s (or sources)
 // and v, or nil if no such path.
@@ -135,7 +131,7 @@ func (search *Paths) PathTo(v int) []int {
 
 	path := make(util.Stack, 0)
 	var x int
-	for x = v; search.distTo[x] != 0; x = search.edgeTo[x]  {
+	for x = v; search.distTo[x] != 0; x = search.edgeTo[x] {
 		path.Push(x)
 	}
 
@@ -143,7 +139,7 @@ func (search *Paths) PathTo(v int) []int {
 	return path
 }
 
-func (search *Paths) check(g *graph.Graph, s int) bool{
+func (search *Paths) check(g *graph.Graph, s int) bool {
 	// check that the distance of s = 0
 	// check that the distance of s = 0
 	if search.distTo[s] != 0 {
@@ -157,14 +153,14 @@ func (search *Paths) check(g *graph.Graph, s int) bool{
 		for _, w := range g.Adj(v) {
 			if search.HasPathTo(v) != search.HasPathTo(w) {
 				fmt.Println("edge", v, "-", w)
-				fmt.Println("hasPathTo(", v, ") = ",  search.HasPathTo(v))
+				fmt.Println("hasPathTo(", v, ") = ", search.HasPathTo(v))
 				fmt.Println("hasPathTo(", w, ") = ", search.HasPathTo(w))
 				return false
 			}
-			if search.HasPathTo(v) && (search.distTo[w] > search.distTo[v] + 1) {
-				fmt.Println("edge",  v,  "-",  w)
-				fmt.Println("distTo[",  v,  "] = ",  search.distTo[v])
-				fmt.Println("distTo[",  w,  "] = ",  search.distTo[w])
+			if search.HasPathTo(v) && (search.distTo[w] > search.distTo[v]+1) {
+				fmt.Println("edge", v, "-", w)
+				fmt.Println("distTo[", v, "] = ", search.distTo[v])
+				fmt.Println("distTo[", w, "] = ", search.distTo[w])
 				return false
 			}
 		}
@@ -173,9 +169,11 @@ func (search *Paths) check(g *graph.Graph, s int) bool{
 	// check that v = edgeTo[w] satisfies distTo[w] = distTo[v] + 1
 	// provided v is reachable from s
 	for w := 0; w < g.V; w++ {
-		if !search.HasPathTo(w) || w == s { continue }
+		if !search.HasPathTo(w) || w == s {
+			continue
+		}
 		v := search.edgeTo[w]
-		if search.distTo[w] != search.distTo[v] + 1 {
+		if search.distTo[w] != search.distTo[v]+1 {
 			fmt.Println("shortest path edge", v, "-", w)
 			fmt.Println("distTo[", v, "] = ", search.distTo[v])
 			fmt.Println("distTo[", w, "] = ", search.distTo[w])

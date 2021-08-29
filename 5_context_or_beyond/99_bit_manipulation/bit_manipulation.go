@@ -41,7 +41,7 @@ func Xor (x, y int) int {
 
 // two's component
 // 00000000 = 0
-// 11111111 = -1
+// 11111111 = -1  0xff
 // -2^7 + 2^6 + 2^5 + 2^4 + 2^3 + 2^2 + 2^1 + 1 = -1
 
 //  x = 01101100
@@ -164,6 +164,67 @@ func Swap(x, y *int) {
 	*x = *x ^ *y
 	*y = *x ^ *y
 	*x = *x ^ *y
+}
+
+// PopulationCount
+// count the number of 1 bits in a word x
+// 11010000 x
+// 11001111 x-1
+// 11000000 x &= x-1   1st
+// 10111111 x-1
+// 10000000 x &= x-1   2nd
+// 00000000 x-1
+// 00000000 x &= x-1   3rd
+func PopulationCount(x int) int {
+	var r int
+	for x != 0 {
+		x &= x-1
+		r++
+	}
+	return r
+}
+
+func PopCount(x uint64) int {
+	// build up table
+	// store each eight bit words of 1s.
+	var count [256]byte
+	for i := range count {
+		count[i] = count[i/2] + byte(i&1)
+	}
+
+	var r int
+	for x != 0 {
+		r += int(count[x & 0xff])
+		x >>= 8
+	}
+
+	return r
+}
+
+// PopCount2
+// 101010 42
+// count[i/2] = count[i] >> 1
+// i & 1 = the last bit of i
+// count(101010) = count(10101) + 0
+// count(10101)  = count(1010)  + 1
+// count(1010)   = count(101)   + 0
+// count(101)    = count(10)    + 1
+// count(10)     = count(1)     + 0
+// count(1)      = count(0)     + 1
+func PopCount2(x uint64) int {
+	var pc [256]byte
+	for i := range pc {
+		pc[i] = pc[i/2] + byte(i & 1)
+	}
+
+	return int(pc[byte(x>>(0*8))] +
+		pc[byte(x>>(1*8))] +
+		pc[byte(x>>(2*8))] +
+		pc[byte(x>>(3*8))] +
+		pc[byte(x>>(4*8))] +
+		pc[byte(x>>(5*8))] +
+		pc[byte(x>>(6*8))] +
+		pc[byte(x>>(7*8))])
 }
 
 // others

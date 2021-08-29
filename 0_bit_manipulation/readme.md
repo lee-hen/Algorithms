@@ -1,4 +1,4 @@
-# Bitwise operations
+# Bit Manipulation
 - [ ] [Bits cheat sheet](bits-cheat-sheet.pdf) - you should know many of the powers of 2 from (2^1 to 2^16 and 2^32)
 - [ ] Get a really good understanding of manipulating bits with: &, |, ^, ~, >>, <<
     - [ ] [words](https://en.wikipedia.org/wiki/Word_(computer_architecture))

@@ -11,3 +11,6 @@
 
 ### Other Algorithms Exercises
 [Algoexpert](https://github.com/lee-hen/Algoexpert)
+
+### The Go Programming Language
+[Source](https://github.com/lee-hen/gopl.io)

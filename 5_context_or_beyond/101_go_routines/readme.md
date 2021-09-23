@@ -8,7 +8,7 @@ Channels allow you to pass references to data structures between goroutines. If 
 
 ## Concurrent vs Parallel
 
-![Parallel vs Concurrent](Parallel vs Concurrent.png)
+![Parallel vs Concurrent](parallel_vs_concurrent.png)
 
 - Concurrent execution is not necessarily the same as parallel execution
 - Concurrent: start and end times overlap
@@ -33,7 +33,7 @@ Channels allow you to pass references to data structures between goroutines. If 
 - Control flow changes from one process to another
 - Process “context” must be swapped
 
-![Context Switch](Context Switch.png)
+![Context Switch](context_switch.png)
 
 ## Threads vs. Processes
 
@@ -41,7 +41,7 @@ Channels allow you to pass references to data structures between goroutines. If 
 - Threads share some context
 - OS schedules threads rather than processes
 
-![Threads vs Processes](Threads vs Processes.png)
+![Threads vs Processes](threads_vs_processes.png)
 
 ## Goroutines
 
@@ -54,7 +54,7 @@ Channels allow you to pass references to data structures between goroutines. If 
 - Like a little OS inside a single OS thread
 - Logical processor is mapped to a thread
 
-![Go Runtime Scheduler](Go Runtime Scheduler.png)
+![Go Runtime Scheduler](go_runtime_scheduler.png)
 
 ## Sync WaitGroup
 
@@ -65,7 +65,7 @@ Channels allow you to pass references to data structures between goroutines. If 
   - Decrement counter when each goroutine completes 
   - Waiting goroutine cannot continue until counter is 0
 
-![Sync WaitGroup](Sync WaitGroup.png)
+![Sync WaitGroup](sync_wait_group.png)
 
 ## Unbuffered Channel
 

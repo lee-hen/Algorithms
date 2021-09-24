@@ -133,3 +133,31 @@ func IntegerToBinary(n int) string {
 	}
 	return IntegerToBinary(n/2) + strconv.Itoa(n % 2)
 }
+
+// Factors
+// Computes the prime factorization of n using brute force.
+// 81                       3 3 3 3
+// 168                      2 2 2 3 7
+// 4444444444               2 2 11 41 271 9091
+// 4444444444444463         4444444444444463
+// 10000001400000049        100000007 100000007
+// 1000000014000000049      1000000007 1000000007
+// 9201111169755555649      3033333343 3033333343
+func Factors(n int64) []int64 {
+	primeFactors := make([]int64, 0)
+
+	var factor int64
+	for factor = 2; factor * factor <= n; factor++ {
+		// if factor is a factor of n, repeatedly divide it out
+		for n % factor == 0 {
+			primeFactors = append(primeFactors, factor)
+			n = n / factor
+		}
+	}
+
+	// if biggest factor occurs only once, n > 1
+	if n > 1 {
+		primeFactors = append(primeFactors, n)
+	}
+	return primeFactors
+}

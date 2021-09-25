@@ -9,8 +9,15 @@
 ### Bit Manipulation
 [Bit Manipulation](https://github.com/lee-hen/Algorithms/tree/main/5_context_or_beyond/99_bit_manipulation)
 
+### Popular Design Patterns 
+
+[Design Patterns](https://github.com/lee-hen/design-patterns)
+
 ### Other Algorithms Exercises
 [Algoexpert](https://github.com/lee-hen/Algoexpert)
+
+### Cracking the Coding Interview
+[Cracking the Coding Interview](https://github.com/lee-hen/CtCI-6th-Edition)
 
 ### The Go Programming Language
 [Source](https://github.com/lee-hen/gopl.io)

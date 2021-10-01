@@ -93,7 +93,7 @@ func IsBitSet(x int, position uint) bool {
 
 // ModifyBit
 // 00000110 x
-// 00000101 6
+// 00000101 5
 // 00000001 state
 // mask = 00000001 << 00000101 = 00100000
 // ^mask = 11011111
@@ -119,7 +119,7 @@ func CheckEven(x int) bool {
 // 0111     7 x-1
 // 0000
 func CheckPowerOfTwo(x int) bool {
-	return (x & x-1) == 0
+	return (x & (x-1)) == 0
 }
 
 func Abs(x int) int {

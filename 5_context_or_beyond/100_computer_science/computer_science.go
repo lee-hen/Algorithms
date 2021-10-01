@@ -112,9 +112,9 @@ func Binary(n int) string {
 	for power > 0 {
 		// power is not present in n
 		if n < power {
-			binary.WriteByte(0)
+			binary.WriteByte('0')
 		} else { // power is present in n, so subtract power from n
-			binary.WriteByte(1)
+			binary.WriteByte('1')
 			n -= power
 		}
 

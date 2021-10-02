@@ -63,8 +63,14 @@ func TestCheckPowerOfTwo(t *testing.T) {
 }
 
 func TestAbs(t *testing.T) {
-	expected := 10
-	output := Abs(-10)
+	expected := int32(123)
+	output := Abs32(123)
+	require.Equal(t, expected, output)
+}
+
+func TestAbs8(t *testing.T) {
+	expected := int8(123)
+	output := Abs8(123)
 	require.Equal(t, expected, output)
 }
 

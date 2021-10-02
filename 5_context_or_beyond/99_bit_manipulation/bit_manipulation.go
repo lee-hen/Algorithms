@@ -44,11 +44,30 @@ func Xor (x, y int) int {
 // 11111111 = -1  0xff
 // -2^7 + 2^6 + 2^5 + 2^4 + 2^3 + 2^2 + 2^1 + 1 = -1
 
-//  x = 01101100
+// 00000100 + ? = -0
+// 00000100  4
+//           +
+// 11111100 -4 -> answer
+// 10000000 -0
+// -2^7 + 2^6 + 2^5 + 2^4 + 2^3 + 2^2 + 0^1 + 0 = -4
+
+// how to find -integer to binary
+// 1. convert integer to binary
+// 2. invert bits
+// 3. Add 1
+
+// -123
+// 0 1 1 1 1 0 1 1
+//   0 0 0 0 1 0 0
+//   0 0 0 0 1 0 1
+// 1 0 0 0 0 1 0 1
+
+//  x = 01111011
 // -x = ?
-// ^x = 10010011
+// ^x = 10000100
 // +1 = 00000001
-// -x = 10010100 = ^x + 1
+// -x = 10000101 = ^x + 1
+// -x = ^x + 1
 
 // SetBit
 // 00000110
@@ -91,21 +110,6 @@ func IsBitSet(x int, position uint) bool {
 	return shift & 1 == 1
 }
 
-// ModifyBit
-// 00000110 x
-// 00000101 5
-// 00000001 state
-// mask = 00000001 << 00000101 = 00100000
-// ^mask = 11011111
-// x & ^mask = 00000110 & 11011111 = 00000110  -> the same as clear bit
-// -state = 11111111
-// -state & mask = 11111111 & 00100000 = 00100000
-// x & ^mask | (-state & mask) = 00000110 | 00100000 = 00100110
-func ModifyBit(x, state int, position uint) int {
-	mask := 1 << position
-	return  x & ^mask | (-state & mask)
-}
-
 // CheckEven
 // 0110 6
 // 0001
@@ -122,48 +126,74 @@ func CheckPowerOfTwo(x int) bool {
 	return (x & (x-1)) == 0
 }
 
-func Abs(x int) int {
-	// All major processors represent negative numbers using the two's-complement which is defined as:
-	// for x ≥ 0 → x
-	// for x < 0 → NOT(x) + 1
-	//
-	// On the lowest level, computers provide logical bit shifts and arithmetic bit shifts.
-	//	Both shifts differ in handling how to fill the empty bits on the left side.
-	//	Logical shifts insert zeros while arithmetic shifts replicate the formerly highest bit.
-	//
-	//	Whereas signed integers are arithmetically shifted in C, unsigned integers are logically shifted.
-	//
-	//	In our case x is shifted arithmetically 31 times to the right which basically erases its value
-	// and spreads the highest bit. That means, line 3 evaluates either to 0x00000000 (→ 0) or
-	// 0xFFFFFFFF (→ −1).
-	// Note: 32 bit systems require a shift by 31, 64 bit systems require a shift by 63 accordingly.
-	//
-	// Consequently, line 4 turns out to be (x XOR 0) − 0 for positive values of x (including x=0).
-	// x XOR 0 is still x and x − 0 remains x, too. So for positive x we get x ≥ 0 → x.
-	//
-	// We saw that for negative values of x, bit31 is set to 0xFFFFFFFF.
-	// Line 4 is then (x XOR 0xFFFFFFFF) − 0xFFFFFFFF. The bracketed XOR is equivalent to NOT(x) and
-	// the constant −0xFFFFFFFF turns out to be −(-1) = +1.
-	// In the end, the whole term is NOT(x) + 1, exactly what we wanted: for x < 0 → NOT(x) + 1
-	//
-	// Note: Current C++ compilers (Microsoft, GCC and Intel) implemented a special assembler code sequence
-	// for abs which runs faster than the shown algorithm on x86 CPUs (see below for its source code).
-    // designed for 32 bits (simple modification for 64 bits possible)
+// Swap
+// *x = 10111101
+// *y = 00101110
+// *x = 10010011 = *x^*y
+// *y = 10111101 = *x^*y
+// *x = 00101110 = *x^*y
+func Swap(x, y *int) {
+	*x = *x ^ *y // flip *x with *y
+	*y = *x ^ *y // flip back to origin x
+	*x = *x ^ *y // flop back to origin y
+}
 
+// ModifyBit
+// 00000110 x
+// 00000101 5
+// 00000001 state
+// mask = 00000001 << 00000101 = 00100000
+// ^mask = 11011111
+// x & ^mask = 00000110 & 11011111 = 00000110  -> the same as clear bit
+// -state = 11111111
+// -state & mask = 11111111 & 00100000 = 00100000
+// x & ^mask | (-state & mask) = 00000110 | 00100000 = 00100110
+// when state is 4
+// 00000100 state
+// 11111100 -state
+// 00100000  mask
+// 00100000  -state & mask
+func ModifyBit(x, state int, position uint) int {
+	mask := 1 << position
+	return  x &^ mask | (-state & mask)
+}
+
+// Abs
+// All major processors represent negative numbers using the two's-complement which is defined as:
+// for x ≥ 0 → x
+// for x < 0 → NOT(x) + 1
+// On the lowest level, computers provide logical bit shifts and arithmetic bit shifts.
+// Both shifts differ in handling how to fill the empty bits on the left side.
+// Logical shifts insert zeros while arithmetic shifts replicate the formerly highest bit.
+// Whereas signed integers are arithmetically shifted in C, unsigned integers are logically shifted.
+// In our case x is shifted arithmetically 31 times to the right which basically erases its value
+// and spreads the highest bit. That means, line 3 evaluates either to 0x00000000 (→ 0) or 0xFFFFFFFF (→ −1).
+// Note: 32 bit systems require a shift by 31, 64 bit systems require a shift by 63 accordingly.
+// Consequently, line 2 turns out to be (x XOR 0) − 0 for positive values of x (including x=0).
+// x XOR 0 is still x and x − 0 remains x, too. So for positive x we get x ≥ 0 → x.
+// We saw that for negative values of x, bit31 is set to 0xFFFFFFFF.
+// Line 4 is then (x XOR 0xFFFFFFFF) − 0xFFFFFFFF. The bracketed XOR is equivalent to NOT(x) and
+// the constant −0xFFFFFFFF turns out to be −(-1) = +1.
+// In the end, the whole term is NOT(x) + 1, exactly what we wanted: for x < 0 → NOT(x) + 1
+
+// Abs32
+// 01111011  x -> 123
+// 00000000  bit7 -> x >> 7 -> 123/128 -> 0 // logical shifts: insert zeros
+// 01111011  x^bit7
+// 01111011 - 00000000 = 01111011 = x^bit7 - bit7
+func Abs32(x int32) int32 {
 	bit31 := x >> 31
 	return (x ^ bit31) - bit31
 }
 
-// Swap
-// x = 10111101
-// y = 00101110
-// x = 10010011 = x^y
-// y = 10111101 = x^y
-// x = 00101110 = x^y
-func Swap(x, y *int) {
-	*x = *x ^ *y
-	*y = *x ^ *y
-	*x = *x ^ *y
+// Abs8
+// 10000101  x -> -123
+// 11111111  bit7 -> x >> 7 -> -123/128 -> -1 // arithmetic shifts: replicate the formerly highest bit
+// 01111010  x^bit7
+// 01111010 - 11111111 = 01111010 + 00000001 = 01111011 = x^bit7 - bit7
+func Abs8(x int8) int8 {
+	 bit7 := x >> 7
+	 return (x ^ bit7) - bit7
 }
 
 // PopulationCount
@@ -178,32 +208,14 @@ func Swap(x, y *int) {
 func PopulationCount(x int) int {
 	var r int
 	for x != 0 {
-		x &= x-1
+		x &= x-1  // the same as check power of two
 		r++
 	}
 	return r
 }
 
-func PopCount(x uint64) int {
-	// build up table
-	// store each eight bit words of 1s.
-	var count [256]byte
-	for i := range count {
-		count[i] = count[i/2] + byte(i&1)
-	}
-
-	var r int
-	for x != 0 {
-		r += int(count[x & 0xff])
-		x >>= 8
-	}
-
-	return r
-}
-
-// PopCount2
+// PopCount
 // 101010 42
-// count[i/2] = count[i] >> 1
 // i & 1 = the last bit of i
 // count(101010) = count(10101) + 0
 // count(10101)  = count(1010)  + 1
@@ -211,10 +223,27 @@ func PopCount(x uint64) int {
 // count(101)    = count(10)    + 1
 // count(10)     = count(1)     + 0
 // count(1)      = count(0)     + 1
+func PopCount(x uint64) int {
+	// build up table
+	// store each eight bit words of 1s.
+	var count [256]byte
+	for i := range count {
+		count[i] = count[i>>1] + byte(i&1) // count[i>>1] = count[i/2]
+	}
+
+	var r int
+	for x != 0 {
+		r += int(count[x & 0xff]) // 0xff -> 11111111 -> -1
+		x >>= 8
+	}
+
+	return r
+}
+
 func PopCount2(x uint64) int {
 	var pc [256]byte
 	for i := range pc {
-		pc[i] = pc[i/2] + byte(i & 1)
+		pc[i] = pc[i/2] + byte(i & 1) // pc[i/2] = pc[i>>1]
 	}
 
 	return int(pc[byte(x>>(0*8))] +

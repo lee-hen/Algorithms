@@ -15,12 +15,8 @@
 
 ### Other Algorithms Exercises
 [Algoexpert](https://github.com/lee-hen/Algoexpert)
-
-### Cracking the Coding Interview
 [Cracking the Coding Interview](https://github.com/lee-hen/CtCI-6th-Edition)
-
-### leetcode
-[Cracking the Coding Interview](https://github.com/lee-hen/leetcode)
+[leetcode](https://github.com/lee-hen/leetcode)
 
 ### The Go Programming Language
 [Source](https://github.com/lee-hen/gopl.io)

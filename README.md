@@ -14,9 +14,9 @@
 [Design Patterns](https://github.com/lee-hen/design-patterns)
 
 ### Other Algorithms Exercises
-|  Algo Expert  | CtCI 6th Edition   | LeetCode |
+| Algo Expert | Cracking the Coding Interview | LeetCode |
 | --- | --- | --- |
-|  [Algoexpert](https://github.com/lee-hen/Algoexpert)  |  [Cracking the Coding Interview](https://github.com/lee-hen/CtCI-6th-Edition)  | [leetcode](https://github.com/lee-hen/leetcode) |
+|  [Algoexpert](https://github.com/lee-hen/Algoexpert)  |  [CtCI 6th Edition](https://github.com/lee-hen/CtCI-6th-Edition)  | [leetcode](https://github.com/lee-hen/leetcode) |
 
 ### The Go Programming Language
 [Source](https://github.com/lee-hen/gopl.io)

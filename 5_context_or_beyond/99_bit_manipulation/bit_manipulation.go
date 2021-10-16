@@ -27,7 +27,7 @@ func Xor (x, y int) int {
 // Not
 //     0101 (decimal 5)
 // XOR 1111
-//   = 1010 (decimal 10)
+//   = 1010 (decimal -6)
 func Not(x int) int {
 	return ^x
 }

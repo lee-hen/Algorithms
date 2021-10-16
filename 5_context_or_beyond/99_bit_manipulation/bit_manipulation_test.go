@@ -23,6 +23,12 @@ func TestXor(t *testing.T) {
 	require.Equal(t, expected, output)
 }
 
+func TestNot(t *testing.T) {
+	expected := -6
+	output := Not(5)
+	require.Equal(t, expected, output)
+}
+
 func TestSetBit(t *testing.T) {
 	expected := 38
 	output := SetBit(6,5)

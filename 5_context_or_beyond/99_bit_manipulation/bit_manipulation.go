@@ -24,6 +24,14 @@ func Xor (x, y int) int {
 	return x ^ y
 }
 
+// Not
+//     0101 (decimal 5)
+// XOR 1111
+//   = 1010 (decimal 10)
+func Not(x int) int {
+	return ^x
+}
+
 // How to convert binary to decimal
 // The decimal number is equal to the sum of binary digits (dn) times their power of 2 (2n):
 // decimal = d0×2^0 + d1×2^1 + d2×2^2 + ...
@@ -39,7 +47,7 @@ func Xor (x, y int) int {
 // 10010110
 // -128 + 16 + 4 + 2 = -106
 
-// two's component
+// two's complement
 // 00000000 = 0
 // 11111111 = -1  0xff
 // -2^7 + 2^6 + 2^5 + 2^4 + 2^3 + 2^2 + 2^1 + 1 = -1

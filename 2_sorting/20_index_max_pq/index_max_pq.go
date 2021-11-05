@@ -6,16 +6,13 @@ import (
 
 type IndexMaxPQ struct {
 	*Heap
-
-	maxN int
 }
 
-func NewIndexMaxPQ(maxN int) *IndexMaxPQ {
+func NewIndexMaxPQ() *IndexMaxPQ {
 	heap := NewHeap(MaxHeapFunc)
 
 	return &IndexMaxPQ{
 		heap,
-		maxN,
 	}
 }
 

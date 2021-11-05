@@ -11,7 +11,7 @@ import (
 
 func main() {
 	priorities := []float64{10.2, 65.1, 32.0, 21.3, 100.8, 85.5, 71.2, 3.33, -1.563}
-	pq := idxMaxPQ.NewIndexMaxPQ(len(priorities))
+	pq := idxMaxPQ.NewIndexMaxPQ()
 
 	for i, priority := range priorities {
 		pq.Insert(i, priority)

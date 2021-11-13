@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+// https://github.com/lee-hen/Algoexpert/tree/master/very_hard/17_knuth_morris_pratt_algorithm
+
 //  % go run kmp.go
 //  abracadabra
 //  abacadabrabracabracadabrabrabracad
